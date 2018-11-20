@@ -1,0 +1,107 @@
+/**app.wxss**/
+/* @import "./style/layout.wxss";
+@import './style/weui.wxss'; */
+
+/* .container {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+} 
+
+page {
+  background-color: #fbf9fe;
+}
+
+
+
+.green{
+    color: #09BB07;
+}
+.red{
+    color: #F76260;
+}
+.blue{
+    color: #10AEFF;
+}
+.yellow{
+    color: #FFBE00;
+}
+.gray{
+    color: #C9C9C9;
+}
+
+.strong{
+    font-weight: bold;
+}
+
+.bc_green{
+    background-color: #09BB07;
+}
+.bc_red{
+    background-color: #F76260;
+}
+.bc_blue{
+    background-color: #10AEFF;
+}
+.bc_yellow{
+    background-color: #FFBE00;
+}
+.bc_gray{
+    background-color: #C9C9C9;
+}
+
+.tc{
+    text-align: center;
+}
+
+.index-banner{
+	width: 100%;
+	height: 474rpx;
+}
+.index-banner .slide-image{
+	width: 100%;
+}
+.wx-swiper-dot text{
+	background: #f00;
+} */
+
+/* 标题 */
+.model_title{
+   width: 96%;
+   max-height: 120rpx;
+   font-size: 36rpx;
+   margin: auto;
+   padding-top: 10rpx;
+      /* overflow: hidden; *自动隐藏文字
+    text-overflow: ellipsis;*文字隐藏后添加省略号
+    white-space: nowrap;*强制不换行
+    margin-left:20rpx; */
+}
+
+/* 一条线 */
+.border_1rpx{
+  height: 1rpx;
+  width: 100%;
+  background-color: #eee;
+}
+.red{
+  color: red;
+}
+
+/* model_null 暂无数据 */
+.model_null{
+  width: 94%;
+  margin: auto;
+  font-size: 30rpx;
+  text-align: center;
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+   box-shadow: 2px 2px 5px #888888;
+   border-radius: 10rpx;
+   border-top:1rpx solid #eee; 
+  opacity: 0.7;
+}

@@ -1,0 +1,41 @@
+
+/**
+  path: /assets/wxss/model/model5.wxss
+  作者:  lingfe 
+  时间:  2018-09-26
+  model: 周边推荐-关注
+  显示内容有： 头像、名称、是否已实名认证、+关注按钮，图片1，标题
+  描述:  表示模块6，用布局样式
+**/
+
+.model6 {
+   width: 94%;
+   margin: auto;
+   background-color: #fff;
+   margin-bottom: 20rpx;
+   box-shadow: 2px 2px 5px #888888;
+   border-radius: 10rpx;
+   border-top:1rpx solid #eee; 
+   height: auto;
+   padding-bottom: 10rpx;
+}
+.model6_infoSource {
+  width:100%;
+  height:100rpx;
+  background-color:#fff;
+  border-top:1rpx solid #eee;
+  border-bottom:1rpx solid #eee;
+}
+
+.model6_content{
+  width: 100%;
+}
+.model6_content_image{
+  width: 100%;
+  height: 200rpx;
+}
+.model6_content_title{
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+}

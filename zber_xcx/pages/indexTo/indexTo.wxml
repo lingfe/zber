@@ -1,0 +1,13 @@
+
+<!-- 导入资源 -->
+<import src="/assets/wxml/type_menu.wxml"/>
+<import src="/assets/wxml/lbt.wxml" />
+
+<view class="page">
+
+  <!-- 轮播图 -->
+  <template is="lbt" data="{{lbt_attribute}}"/>
+
+  <!-- 服务菜单 -->
+  <template is="type_menu" data="{{type_menu,tt}}"/>
+</view>

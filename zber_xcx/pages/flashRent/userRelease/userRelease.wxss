@@ -1,0 +1,4 @@
+/* pages/flashRent/userRelease/userRelease.wxss */
+@import '/pages/indexTo/admissionApply/applyMerchant/applyMerchant.wxss';
+/* 项目详情 */
+@import '/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail';

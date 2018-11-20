@@ -1,0 +1,172 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.98",
+	"appid": "wx2c5b4fc4466c3e4e",
+	"projectname": "周边儿",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 21,
+			"list": [
+				{
+					"id": 0,
+					"name": "推荐",
+					"pathName": "pages/flashRent/flashRent",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "餐饮(菜单)列表",
+					"pathName": "pages/list/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "组件API",
+					"pathName": "pages/component/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "服务",
+					"pathName": "pages/indexTo/indexTo",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "会议室详细",
+					"pathName": "pages/detailed/detailed",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "公共详情",
+					"pathName": "pages/flashRent/publicDetail/publicDetail",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "闪租",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "我的",
+					"pathName": "pages/my/my",
+					"query": ""
+				},
+				{
+					"id": 8,
+					"name": "日志",
+					"pathName": "pages/logs/logs",
+					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "会议室列表",
+					"pathName": "pages/index/room/room",
+					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "拼团详情",
+					"pathName": "pages/flashRent/flashRentDetailed/flashRentDetailed",
+					"query": ""
+				},
+				{
+					"id": 11,
+					"name": "商品详情",
+					"pathName": "pages/flashRent/flashRentDetailed/detail/detail",
+					"query": ""
+				},
+				{
+					"id": 12,
+					"name": "野货",
+					"pathName": "pages/indexTo/yeHuo/yeHuo",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "预约",
+					"pathName": "pages/indexTo/yuYue/yuYue",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "野货详情",
+					"pathName": "pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "微信登陆",
+					"pathName": "pages/wxUserinfoLogin/wxUserinfoLogin",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "申请成为商户",
+					"pathName": "pages/indexTo/admissionApply/applyMerchant/applyMerchant",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "官方审核管理",
+					"pathName": "pages/my/auditing/auditing",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加商铺",
+					"pathName": "pages/my/myShops/addShops/addShops",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的商铺",
+					"pathName": "pages/my/myShops/myShops",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "添加商品",
+					"pathName": "pages/my/myShops/addShops/add_commodity/add_commodity",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的发布",
+					"pathName": "pages/my/myReleaseInfo/myReleaseInfo"
+				}
+			]
+		}
+	}
+}

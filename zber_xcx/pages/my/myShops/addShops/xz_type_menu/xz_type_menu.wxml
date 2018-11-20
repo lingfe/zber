@@ -1,0 +1,14 @@
+<!--pages/my/myShops/addShops/xz_type_menu/xz_type_menu.wxml-->
+
+<view class="page">
+  <!-- 分类菜单 start -->
+  <view class='find_menu'>
+    <view bindtap='xzTypeMenu' id="{{item.id}}"
+    wx:for="{{type_menu}}"  wx:key="{{item.id}}" class='menu'>
+       <image class='menu_img' src='{{item.typeMenuIcoUrl}}'></image>
+       <view class='menu_text'>{{item.typeMenuName}}</view>
+       <view class='menu_v' wx:if="{{item.id==id}}">ok</view>
+    </view>
+  </view>
+  <!-- 分类菜单 end -->
+</view>

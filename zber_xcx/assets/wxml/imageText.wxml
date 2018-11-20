@@ -1,0 +1,134 @@
+<!--
+/**
+  path: /assets/wxml/imageText.wxml
+  作者:  lingfe 
+  时间:  2018-09-26
+  名称: tabs内容，图片与文字布局
+  描述:  
+**/
+-->
+
+<!--tabs内容，图片与文字布局  start-->
+<template name="imageText">
+
+  <!-- 旧模式 -->
+  <view wx:if="{{info!=null}}" class="weui-tab__content" wx:for="{{info}}" 
+  wx:key="{{item.id}}" hidden="{{activeIndex != index }}">
+        <view class='tab_content'>            
+          <!-- 模块内容 start  -->
+          <view class='content_pro' wx:for-item="pro" 
+          wx:for="{{item.content}}" wx:key="*this">
+              <!-- 内容标题 -->
+              <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
+              <!-- 内容content -->
+              <view class='pro_content' wx:if="{{pro.content != null}}">
+                <text>{{pro.content}}</text>
+                <!-- 加粗的内容content_Bold -->
+                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+              </view>
+              <!-- 内容加粗content_Bold -->
+              <view class='pro_content' wx:elif="{{pro.content_Bold != null}}">
+                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+              </view>
+              <!-- 图片img -->
+              <image mode="widthFix" wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
+              <!-- 图片说明文字text -->
+              <view class='img_text' wx:if="{{pro.text != null}}">{{pro.text}}</view>
+          </view>
+          <!-- 模块内容 end  -->
+        </view>
+        <view class='bottom'></view>
+        <navigator url="/pages/my/myShops/addShops/addShops" class='botton_creator to'>+</navigator>
+  </view>
+
+  <!-- 默认显示 -->
+  <view wx:if="{{tabs_list!=null}}" class="weui-tab__content" >
+        <view class='tab_content'>            
+          <!-- 模块内容 start  -->
+          <view class='content_pro' wx:for-item="pro" 
+            wx:for="{{tabs_list[activeIndex].tabs_content_List}}" wx:key="{{pro.item}}">
+              <!-- 内容标题 -->
+              <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
+
+              <!-- 内容content -->
+              <view class='pro_content'>
+                <!-- 内容加粗，放在内容首content_bold_first -->
+                <span class='content_bold_first' 
+                  wx:if="{{pro.content_bold_first}}">{{pro.content_bold_first}}</span>
+                <!-- 内容 -->
+                <text>{{pro.content}}</text>
+                <!-- 内容加粗，放在内容尾 content_bold_tail-->
+                <span class='content_bold_tail' 
+                wx:if="{{pro.content_bold_tail != null}}">{{pro.content_bold_tail}}</span>
+                <!-- 内容2,当加粗内容在需要放在中间时使用。 -->
+                <text wx:if="{{pro.content_to != null}}">{{pro.content_to}}</text>
+              </view>
+
+              <!-- 图片img -->
+              <view wx:for-item="img" 
+                wx:for="{{pro.images_list}}" wx:key="{{img.id}}">
+                <image mode="widthFix" class='pro_img' src='{{img.imgUrl}}'></image>
+              </view>
+              
+              <!-- 图片说明文字text -->
+              <view class='img_text' wx:if="{{pro.img_txt != null}}">{{pro.img_txt}}</view>
+          </view>
+          <!-- 模块内容 end  -->
+        </view>
+        <!-- 跳转到添加tabs导航菜单内容页面 -->
+        <view bindtap='add_tabs_content' class='botton_creator to'>+</view>
+  </view>
+
+  <!-- 编辑点击时显示 -->
+  <view wx:if="{{tabs_content!=null}}" class="weui-tab__content" >
+        <view class='tab_content'>            
+          <!-- 模块内容 start  -->
+          <view class='content_pro' wx:for-item="pro" 
+            wx:for="{{tabs_content}}" wx:key="{{pro.id}}">
+              <!-- 操作 start -->
+              <view class='operation'>
+                <!-- 编辑 -->
+                <view bindtap='updateTabaContent' id='{{pro.id}}'
+                  class='operation_view'>编辑</view>
+                <!-- 删除 -->
+                <view bindtap='deleteTabaContent' id='{{pro.id}}' 
+                  class='operation_view'>删除</view>
+                <!-- 下架 -->
+                <navigator url='/pages/flashRent/userRelease/userRelease?id={{item.id}}' 
+                  class='operation_view'>查看</navigator>
+              </view>
+              <!-- 操作 end -->
+
+              <!-- 内容标题 -->
+              <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
+
+              <!-- 内容content -->
+              <view class='pro_content'>
+                <!-- 内容加粗，放在内容首content_bold_first -->
+                <span class='content_bold_first' 
+                  wx:if="{{pro.content_bold_first}}">{{pro.content_bold_first}}</span>
+                <!-- 内容 -->
+                <text>{{pro.content}}</text>
+                <!-- 内容加粗，放在内容尾 content_bold_tail-->
+                <span class='content_bold_tail' 
+                wx:if="{{pro.content_bold_tail != null}}">{{pro.content_bold_tail}}</span>
+                <!-- 内容2,当加粗内容在需要放在中间时使用。 -->
+                <text wx:if="{{pro.content_to != null}}">{{pro.content_to}}</text>
+              </view>
+
+              <!-- 图片img -->
+              <view wx:for-item="img" 
+                wx:for="{{pro.images_list}}" wx:key="{{img.id}}">
+                <image mode="widthFix" class='pro_img' src='{{img.imgUrl}}'></image>
+              </view>
+              
+              <!-- 图片说明文字text -->
+              <view class='img_text' wx:if="{{pro.img_txt != null}}">{{pro.img_txt}}</view>
+          </view>
+          <!-- 模块内容 end  -->
+        </view>
+        <!-- 跳转到添加tabs导航菜单内容页面 -->
+        <view bindtap='add_tabs_content' class='botton_creator to'>+</view>
+  </view>
+</template>
+<!-- tabs内容，图片与文字布局  end-->

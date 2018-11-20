@@ -1,0 +1,8 @@
+/* pages/my/myShops/addShops/add_tabs_content/add_tabs_content.wxss */
+
+/*表单*/
+@import '/pages/indexTo/admissionApply/applyMerchant/applyMerchant.wxss';
+
+.page_Fundraising_title_text_title {
+  width: 100%;
+}

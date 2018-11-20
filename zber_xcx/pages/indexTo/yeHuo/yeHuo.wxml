@@ -1,0 +1,26 @@
+<!--/**  
+ *   path:  pages/indexTo/yeHuo/yeHuo.wxss   
+ *   作者:  lingfe 
+ *   时间:  2018-09-26
+ *   描述:  野货.
+ * 
+ * */-->
+ <!-- 导入资源 -->
+<import src="/assets/wxml/lbt.wxml" />
+
+<view class='page'>
+
+  <!-- 轮播图 -->
+  <template is="lbt" data="{{lbt_attribute}}"/>
+
+  <!-- 菜单 start -->
+  <view class='find_menu'>
+    <navigator url="{{item.navigator}}?typeMenu_id={{item.id}}" 
+    wx:for="{{type_menu}}"  wx:key="{{item.id}}" class='menu'>
+       <image class='menu_img' src='{{item.typeMenuIcoUrl}}'></image>
+       <view class='menu_text'>{{item.typeMenuName}}</view>
+       <view class='menu_v'>></view>
+    </navigator>
+  </view>
+  <!-- 菜单 end -->
+</view>

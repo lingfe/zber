@@ -1,0 +1,69 @@
+
+<!-- 导入资源 -->
+<import src="/assets/wxml/model.wxml" />
+
+<view class='page'>
+  <!-- tab切换  start -->
+  <view class="weui-tab">
+      <!-- 菜单  start -->
+      <view class="weui-navbar" style='column-count: {{tabs_list.length}};'>
+        <view id="-2" 
+          class="weui-navbar__item {{activeIndex == -2 ? 'select_text' : ''}}" 
+          data-name="关注" bindtap="tabClick">
+            关注
+        </view>
+        <view id="-1" 
+          class="weui-navbar__item {{activeIndex == -1 ? 'select_text' : ''}}" 
+          data-name="推荐" bindtap="tabClick">
+            推荐
+        </view>
+        <view id="{{index}}"  wx:for="{{type_menu}}" wx:key="{{item.id}}"
+          class="weui-navbar__item {{activeIndex == index ? 'select_text' : ''}}" 
+          data-name="{{item.typeMenuName}}" bindtap="tabClick">
+            {{item.typeMenuName}}
+        </view>
+      </view>
+      <!-- 菜单  end -->
+  </view>
+  <!-- tab切换 end -->
+
+  <!-- 头部 start   -->
+  <view class="dahuo_top">
+    <view class="top_left" bindtap='getAddress'>
+        <text>{{city}}</text>
+        <image src="/assets/images/ico/ico_other/xlcd.png"></image>
+    </view>
+
+    <view class="top_zho">
+      <view class="top_zho_button" bindtap="bindtapButton">
+        <view>{{PriceRange[priceIndex]}}</view>
+      </view>
+      <view class="pricesList" wx:if="{{isPrices == true}}">
+        <image class="img" src="/assets/images/ico/ico_other/u218.png"></image>
+        <view class="bor">
+          <view class="border_bottom" wx:for="{{PriceRange}}" wx:key="{{item}}">
+            <view id="{{index}}" class="prices {{index == priceIndex ? 'color': ''}}" 
+            bindtap="bindtapPrices" >
+              {{item}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="top_right" bindtap="bindtapFabu">
+      +
+    </view>
+  </view>
+  <!-- 头部 end  -->
+
+  <!-- 内容 model  start -->
+  <view class='page_model'>
+    <view wx:for="{{lists}}"  wx:key="{{item.model}}">
+      <template is="model{{item.model}}" data="{{item,index}}" />
+    </view>
+    <view class='model'  wx:if="{{lists.length == 0}}">
+      <template is="model"/>
+    </view>
+  </view>
+  <!-- 内容 model  end -->
+</view>

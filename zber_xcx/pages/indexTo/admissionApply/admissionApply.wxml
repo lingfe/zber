@@ -1,0 +1,13 @@
+<!--pages/indexTo/admissionApply/admissionApply.wxml-->
+<view class='page'>
+  <!-- 菜单 start -->
+  <view class='find_menu'>
+    <view bindtap='btn_navigate' id="{{item.id}}" data-item="{{item}}"
+    wx:for="{{lbt_images}}"  wx:key="{{item.id}}" class='menu'>
+       <image class='menu_img' src='{{item.img_url}}'></image>
+       <view class='menu_text'>{{item.name}}</view>
+       <view class='menu_v'>></view>
+    </view>
+  </view>
+  <!-- 菜单 end -->
+</view>

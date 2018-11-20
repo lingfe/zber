@@ -1,0 +1,49 @@
+<!--pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail.wxml-->
+<!--/**  
+ *   作者:  lingfe 
+ *   时间:  2017-12-7
+ *   描述:  野货详细信息
+ * 
+ * */-->
+ 
+<!-- 导入资源 -->
+<import src="/assets/wxml/bottom.wxml" />
+<import src="/assets/wxml/imageText.wxml" />
+<import src="/assets/wxml/lbt.wxml" />
+<import src="/assets/wxml/label_and_description.wxml" />
+<import src="/assets/wxml/infoSources.wxml" />
+<import src="/assets/wxml/tabsMenu.wxml" />
+
+<view class='page'>
+
+  <!-- 参数 start -->
+  <view class='neiro_model'>
+      <!-- 轮播图 start -->
+      <template is="lbt" data="{{...releaseInfo}}" />
+      <!-- 轮播图 end -->
+
+      <!-- 标题 -->
+      <view class='model_title'>{{releaseInfo.tab_release_info.title}}</view>
+
+      <!-- 标签+描述 -->
+      <template is="label_and_description" data="{{lable_list,...releaseInfo}}" />
+      <!-- 标签+描述 end -->
+  </view>
+  <!-- 参数 end -->
+
+  <!-- 信息来源  start -->
+  <template is="infoSources" data="{{...releaseInfo,user_follow}}" />
+  <!-- 信息来源  end -->
+
+  <!-- tab切换  start -->
+  <template is="tabsMenu" data="{{info,activeIndex,sliderLeft,sliderOffset}}" />
+  <!-- tab切换 end -->
+
+  <!-- tabs内容，图片与文字布局  start-->
+  <template is="imageText" data="{{info,activeIndex}}" />
+  <!-- tabs内容，图片与文字布局  end-->
+
+  <!-- 底部 start -->
+  <template is="bottom" data="{{ax}}" />
+  <!-- 底部 end -->
+</view>

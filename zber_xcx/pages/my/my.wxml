@@ -1,0 +1,171 @@
+<!--index.wxml-->
+
+<view class='page'>
+
+  <!-- 用户信息  start-->
+  <!-- <view class='page_myUserInfo' style='background-image:url(assets/images/my/bg.png)'> -->
+  <view class='page_myUserInfo'>
+
+    <!-- 头像  start -->
+    <view class='page_myUserInfo_image' >
+      <image src='{{user.avatar}}'></image>
+    </view>
+    <!-- 头像  end -->
+
+    <!-- 名称 -->
+    <view class='page_myUserInfo_userName'>昵称:{{user.username}}</view>
+
+    <!-- 用户数据  start-->
+    <view class='page_myUserInfo_caozou'>
+      <!-- 关注人数(关注者) start -->
+      <view class='page_myUserInfo_caozou_caozou'>
+        <view class='page_myUserInfo_caozou_caozou_image'>{{user.follow_num}}</view>
+        <view class='page_myUserInfo_caozou_caozou_title'>关注</view>
+      </view>
+      <!-- 关注人数(关注者) end -->
+
+      <!-- 余额(元) start -->
+      <view class='page_myUserInfo_caozou_caozou'>
+        <view class='page_myUserInfo_caozou_caozou_image'>{{user.balance}}</view>
+        <view class='page_myUserInfo_caozou_caozou_title'>余额(元)</view>
+      </view>
+      <!-- 余额(元) end -->
+
+      <!-- 喜欢总次数(喜欢者) start -->
+      <view class='page_myUserInfo_caozou_caozou'>
+        <view class='page_myUserInfo_caozou_caozou_image'>{{user.like_num}}</view>
+        <view class='page_myUserInfo_caozou_caozou_title'>喜欢</view>
+      </view>
+      <!-- 喜欢总次数(喜欢者) end -->
+    </view>
+    <!-- 用户数据  end -->
+  </view>
+  <!-- 用户信息  end -->
+
+  <!-- 菜单  start-->
+  <view class='page_useCaidang'>
+    <!-- 权限控制操作模块  start-->
+    <view class='page_caidang'>
+      <!--  我的商铺 start -->
+      <view class='page_caidang_caidang' wx:if="{{user.is_merchant == 1}}">
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/zyzzx.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的商铺</view>
+        <navigator url="/pages/my/myShops/myShops?user_id={{info.id}}" 
+          class='page_caidang_caidang_text'>管理，营运..</navigator>
+      </view>
+      <!--  我的商铺 end -->
+
+      <!--  官方维护营运 end -->
+      <view class='page_caidang_caidang border-no' wx:if="{{user.relo == 2}}">
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/zyzzx.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>官方维护营运</view>
+        <navigator url="/pages/my/auditing/auditing?user_id={{info.id}}" 
+          class='page_caidang_caidang_text'>审核,管理..</navigator>
+      </view>
+      <!--  官方维护营运 end -->
+    </view>
+    <!-- 权限控制操作模块  end -->
+
+    <!-- 用户操作模块  start-->
+    <view class='page_caidang'>
+      <!--  个人资料 start -->
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/zyzzx.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>个人资料</view>
+        <navigator url="/pages/my/personalData/personalData?user_id={{info.id}}" 
+          class='page_caidang_caidang_text'>修改头像,名称..</navigator>
+      </view>
+      <!--  个人资料 end -->
+
+      <!--  我的关注 start -->
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/zyzzx.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的关注</view>
+        <navigator url="/pages/myDrippingWater/volunteerCenter/volunteerCenter?user_id={{info.id}}" 
+          class='page_caidang_caidang_text'>关注的商家,企业..</navigator>
+      </view>
+      <!--  我的关注 end -->
+
+      <!--  我的发布 start -->
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/my_fq.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的发布</view>
+        <navigator class='page_caidang_caidang_text' url='/pages/my/myReleaseInfo/myReleaseInfo'>
+          管理发布的项目 ></navigator>
+      </view>
+      <!--  我的发布 end -->
+
+      <!-- <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/my_fq.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的闪租</view>
+        <navigator url='/pages/myDrippingWater/myLaunch/myLaunch?user_id={{info.id}}' class='page_caidang_caidang_text'>
+          到期,续费，已使用 ></navigator>
+      </view>
+
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/fabiao.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的野货</view>
+        <navigator url="/pages/myDrippingWater/myPublication/myPublication?user_id={{info.id}}" class='page_caidang_caidang_text'>
+          喜欢的野货 ></navigator>
+      </view>
+
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/my_gz.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的预约</view>
+        <navigator url="/pages/myDrippingWater/myFollow/myFollow?user_id={{info.id}}" class='page_caidang_caidang_text'>
+          预约中,预约记录 ></navigator>
+      </view>
+
+      <view class='page_caidang_caidang'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/my_ye.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的..</view>
+        <navigator url="/pages/myDrippingWater/myBalance/myBalance?user_id={{info.id}}" 
+        class='page_caidang_caidang_text'>{{user.balance}}.. ></navigator>
+      </view>
+
+      <view class='page_caidang_caidang border-no'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/my_yhk.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>我的银行卡</view>
+        <navigator url="/pages/myDrippingWater/myBank/myBank?user_id={{info.id}}" class='page_caidang_caidang_text'>
+          {{is_bank == 0?'未绑定 >':'已绑定 >'}}
+        </navigator>
+      </view> -->
+    </view>
+    <!-- 用户操作模块  end -->
+
+    <!-- other其他  start -->
+    <view class='page_caidang'>
+      <view class='page_caidang_caidang border-no'>
+        <view class='page_caidang_caidang_image'>
+          <image src='/assets/images/my/hepl.png'></image>
+        </view>
+        <view class='page_caidang_caidang_title'>帮助中心</view>
+        <navigator url='/pages/dripLove/dripMutualAidDetails/webView/webView?url=https://www.dishuihuzhu.cn/Home/Plan/help_01.html' 
+          class='page_caidang_caidang_text'>如何发布、提现.. ></navigator>
+      </view>
+    </view>
+    <!-- other其他  end -->
+  </view>
+  <!-- 菜单  end -->
+</view>
+

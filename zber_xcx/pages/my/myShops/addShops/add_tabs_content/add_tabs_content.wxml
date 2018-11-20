@@ -1,0 +1,104 @@
+<!--pages/my/myShops/addShops/add_tabs_content/add_tabs_content.wxml-->
+<!-- 导入资源 -->
+<import src="/assets/wxml/other.wxml"/>
+
+<view class='page'>
+    <form bindsubmit='bindFormSubmit'>
+          <!-- 内容标题   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              标题<text style='color:#000;'>(选填)</text></view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="title" maxlength='100'
+              placeholder='请输入内容标题'></input>
+            </view>
+          </view>
+          <!-- 内容标题   end-->
+
+          <!-- 内容加粗，放在内容首   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              内容加粗，放在内容首<text style='color:#000;'>(选填)</text> </view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="content_bold_first"
+              placeholder='请输入..'></input>
+            </view>
+          </view>
+          <!-- 内容加粗，放在内容首   end-->
+
+          <!-- 内容   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              内容<text style='color:#000;'>(选填)</text></view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="content"
+              placeholder='请输入内容'></input>
+            </view>
+          </view>
+          <!-- 内容   end-->
+
+          <!-- 内容加粗，放在内容尾   start-->
+          <view class='page_Fundraising_input'>
+            <view  class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              内容加粗，放在内容尾<text style='color:#000;'>(选填)</text> </view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="content_bold_tail" placeholder='请输入..'></input>
+            </view>
+          </view>
+          <!-- 内容加粗，放在内容尾   end-->
+
+          <!-- 内容2,当加粗内容在需要放在中间时使用。   start-->
+          <view class='page_Fundraising_input'>
+            <view  class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              内容2,当加粗内容在需要放在中间时使用。<text style='color:#000;'>(选填)</text> </view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="content_to" placeholder='请输入..'></input>
+            </view>
+          </view>
+          <!-- 内容2,当加粗内容在需要放在中间时使用。   end-->
+
+          <!-- 上传内容图片 start-->
+          <view class='page_Fundraising_image'>
+            <view class='page_Fundraising_image_title'>
+              <view class='page_Fundraising_image_title_title'>
+              上传内容图片<text style='color:#000;'>(选填)</text></view>
+            </view>
+            <view class="image-iamge">
+              <view class='page_Fundraising_image_text'>请选择清晰、干净、明了的图片
+              </view>
+              <!-- 选择图片 -->
+              <template is="other_select_picture" data="{{arr}}"/>
+            </view>
+          </view>
+          <!-- 上传内容图片   end-->
+
+          <!-- 图片说明文本   start-->
+          <view class='page_Fundraising_input'>
+            <view  class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              图片说明文本<text style='color:#000;'>(选填)</text> </view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' name="img_txt" placeholder='请输入..'></input>
+            </view>
+          </view>
+          <!-- 图片说明文本   end-->
+
+          <!-- 提交审核 start -->
+          <view class="page_btn">
+            <button class="page_btn_button" formType="submit">
+            提交审核</button>
+          </view>
+          <!-- 提交审核  end -->
+    </form>        
+</view>

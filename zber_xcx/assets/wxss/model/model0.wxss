@@ -1,0 +1,17 @@
+/**
+  path: /assets/wxss/model/model0.wxss
+  作者:  lingfe 
+  时间:  2018-09-26
+  model：其他 布局方式）
+  描述:  表示模块0，用推荐菜单的数据类型展示和布局样式
+**/
+
+.model1 {
+   width: 94%;
+   margin: auto;
+   background-color: #fff;
+   margin-bottom: 20rpx;
+   box-shadow: 2px 2px 5px #888888;
+   border-radius: 10rpx;
+   border-top:1rpx solid #eee;
+}

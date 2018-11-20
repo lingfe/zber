@@ -1,0 +1,233 @@
+<!--pages/flashRent/userRelease/userRelease.wxml-->
+
+<view class='page'>
+
+    <!-- 导航菜单  start -->
+    <view class="weui-tab" wx:if="{{tab.length != 0}}">
+      <!-- 菜单  start -->
+      <view class="weui-navbar" style="border-bottom:none;">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" 
+          class="weui-navbar__item {{tab_index == index ? 'select_text' : ''}}" 
+          data-name="{{item}}" bindtap="tabClick_to">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+      </view>
+      <!-- 菜单  end -->
+    </view>
+    <!-- 导航菜单  end -->
+
+    <!-- 内容  start-->
+    <view class="weui-tab__panel">
+      <!-- 预览  start -->
+      <view class='weui-tab__content' hidden="{{tab_index != 0}}" >
+        <!-- 导入资源 -->
+        <import src="/assets/wxml/bottom.wxml" />
+        <import src="/assets/wxml/imageText.wxml" />
+        <import src="/assets/wxml/lbt.wxml" />
+        <import src="/assets/wxml/label_and_description.wxml" />
+        <import src="/assets/wxml/infoSources.wxml" />
+        <import src="/assets/wxml/tabsMenu.wxml" />
+
+        <view class='page'>
+
+          <!-- 参数 start -->
+          <view class='neiro_model'>
+              <!-- 轮播图 start -->
+              <template is="lbt" data="{{...releaseInfo}}" />
+              <!-- 轮播图 end -->
+
+              <!-- 标题 -->
+              <view class='model_title'>{{releaseInfo.tab_release_info.title}}</view>
+
+              <!-- 标签+描述 -->
+              <template is="label_and_description" data="{{lable_list,...releaseInfo}}" />
+              <!-- 标签+描述 end -->
+          </view>
+          <!-- 参数 end -->
+
+          <!-- 信息来源  start -->
+          <template is="infoSources" data="{{...releaseInfo,user_follow}}" />
+          <!-- 信息来源  end -->
+
+          <!-- tab切换  start -->
+          <template is="tabsMenu" data="{{info,activeIndex}}" />
+          <!-- tab切换 end -->
+
+          <!-- tabs内容，图片与文字布局  start-->
+          <template is="imageText" data="{{info,activeIndex}}" />
+          <!-- tabs内容，图片与文字布局  end-->
+
+          <!-- 底部 start -->
+          <template is="bottom" data="{{ax}}" />
+          <!-- 底部 end -->
+        </view>
+      </view>
+      <!-- 预览  end -->
+     
+      <!-- 基本信息 start -->
+      <view class="weui-tab__content"
+        hidden="{{tab_index != 1}}">
+        <!-- 导入资源 -->
+        <import src="/assets/wxml/other.wxml"/>
+        <form bindsubmit='bindFormSubmit'>
+          <!-- 上传轮播图 start-->
+          <view class='page_Fundraising_image'>
+            <view class='page_Fundraising_image_title'>
+              <view class='page_Fundraising_image_title_title'>
+              上传轮播图<text style='color:red;'>*</text></view>
+            </view>
+            <view class="image-iamge">
+              <view class='page_Fundraising_image_text'>上传轮播图
+              </view>
+              <!-- 选择图片  start -->
+              <view class="weui-uploader__bd">
+                          <view class="weui-uploader__files" id="uploaderFiles">
+                            <block wx:for="{{form.images}}" wx:key="{{item.id}}">
+                              <view wx:if="{{item !=null}}" 
+                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                <image class="img_tt" 
+                                src="/assets/images/other/delete.png" 
+                                bindtouchend="bindtapImageDelete_images" data-img="{{item.imgUrl}}" />
+                                <image class="weui-uploader__img" 
+                                 src="{{getImage}}{{item.imgUrl}}" mode="aspectFill" />
+                              </view>
+                            </block>
+                            <block wx:for="{{arr}}" wx:key="{{item}}">
+                              <view wx:if="{{item !=null}}" 
+                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                <image class="img_tt" 
+                                src="/assets/images/other/delete.png" 
+                                bindtouchend="bindtapImageDelete" data-img="{{item}}" />
+                                <image class="weui-uploader__img" 
+                                 src="{{item}}" mode="aspectFill" />
+                              </view>
+                            </block>
+                          </view>
+                          <view class="weui-uploader__input-box" bindtap="chooseImage"
+                          wx:if="{{form.images.length + arr.length!=6}}">+</view>
+              </view>
+              <!-- 选择图片  end -->
+            </view>
+          </view>
+          <!-- 上传轮播图   end-->
+
+              <!-- 选择分类菜单   start-->
+              <input hidden='hidden' name="typeMenu_id" value='{{form.typeMenu_id}}'></input>
+              <view class='page_Fundraising_input'>
+                <view class='page_Fundraising_title_text'>
+                  <view class='page_Fundraising_title_text_title'>
+                  选择分类菜单<text style='color:red;'>*</text></view>
+                  <navigator
+                    url="/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?id={{form.typeMenu_id}}" 
+                    class='page_Fundraising_image_title_text'>
+                  选择>></navigator>
+                </view>
+                <view class='page_Fundraising_input_input'>
+                  <input disabled='disabled'  type='text' value='{{form.typeMenu_id}}' 
+                  placeholder='请选择分类菜单'></input>
+                </view>
+              </view>
+              <!-- 选择分类菜单   end-->
+
+          <!-- 标题   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              标题<text style='color:red;'>*</text></view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='number' name="title" value='{{form.title}}' 
+              maxlength='50'
+              placeholder='请输入标题'></input>
+            </view>
+          </view>
+          <!-- 标题   end-->
+
+          <!-- 标签   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              标签<text style='color:red;'>*</text> </view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' 
+              value='{{form.lable}}' 
+              name="lable"
+              placeholder='请输入标签,使用英文符号","隔开'></input>
+            </view>
+          </view>
+          <!-- 标签   end-->
+
+          <!-- 描述   start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>描述</view>
+            </view>
+            <view class='page_Fundraising_input_textarea'>
+              <textarea  value='{{form.describe_info}}' 
+              name="describe_info"
+              maxlength='1000'
+              placeholder='请输入描述'></textarea>
+            </view>
+          </view>
+          <!-- 描述   end-->
+
+          <!-- 详细地址   start-->
+          <view class='page_Fundraising_input'>
+            <view  class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              详细地址<text style='color:red;'>*</text> </view>
+              <view bindtap='getAddress'
+              class='page_Fundraising_image_title_text'>
+              从地图选择地址>></view>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input type='text' value='{{form.address}}' 
+              name="address" placeholder='请输入详细地址'></input>
+            </view>
+          </view>
+          <!-- 详细地址   end-->
+
+          <!-- 提交审核 start -->
+          <view class="page_btn">
+            <button class="page_btn_button" formType="submit">
+            提交审核</button>
+          </view>
+          <!-- 提交审核  end -->
+        </form>   
+      </view>
+      <!-- 基本信息 end -->
+
+      <!-- 其他导航菜单内容说明 start -->
+      <view class="weui-tab__content"
+        hidden="{{tab_index != 2}}">
+        <view class='tab_content'>            
+          <!-- 模块内容 start  -->
+          <view class='content_pro' wx:for-item="pro" 
+          wx:for="{{bujusming_list}}" wx:key="{{item}}">
+              <!-- 内容标题 -->
+              <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
+              <!-- 内容content -->
+              <view class='pro_content' wx:if="{{pro.content != null}}">
+                <text>{{pro.content}}</text>
+                <!-- 加粗的内容content_Bold -->
+                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+              </view>
+              <!-- 内容加粗content_Bold -->
+              <view class='pro_content' wx:elif="{{pro.content_Bold != null}}">
+                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+              </view>
+              <!-- 图片img -->
+              <image mode="widthFix" wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
+              <!-- 图片说明文字text -->
+              <view class='img_text' wx:if="{{pro.text != null}}">{{pro.text}}</view>
+          </view>
+          <!-- 模块内容 end  -->
+        </view>
+      </view>
+      <!-- 其他导航菜单内容说明 end -->
+    </view>
+</view>
+

@@ -1,0 +1,85 @@
+{
+  "pages": [
+    "pages/indexTo/indexTo",
+    "pages/index/index",
+    "pages/list/index",
+    "pages/component/index",
+    "pages/my/my",
+    "pages/logs/logs",
+    "pages/flashRent/flashRent",
+    "pages/index/room/room",
+    "pages/detailed/detailed",
+    "pages/flashRent/flashRentDetailed/flashRentDetailed",
+    "pages/flashRent/flashRentDetailed/detail/detail",
+    "pages/indexTo/yeHuo/yeHuo",
+    "pages/indexTo/yuYue/yuYue",
+    "pages/flashRent/publicDetail/publicDetail",
+    "pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail",
+    "pages/indexTo/yeHuo/yeHuoList/yeHuoList",
+    "pages/wxUserinfoLogin/wxUserinfoLogin",
+    "pages/bindingPhone/bindingPhone",
+    "pages/indexTo/restaurant_food_list/restaurantFood/restaurantFood",
+    "pages/indexTo/admissionApply/admissionApply",
+    "pages/indexTo/admissionApply/applyMerchant/applyMerchant",
+    "pages/zber/indexCity/indexCity",
+    "pages/my/auditing/auditing",
+    "pages/my/auditing/auditing_applyMerchant/auditing_applyMerchant",
+    "pages/my/myShops/myShops",
+    "pages/my/myShops/addShops/addShops",
+    "pages/my/myShops/addShops/add_shopsChooseType_tabs/add_shopsChooseType_tabs",
+    "pages/my/myShops/addShops/edit_shopsChooseType_tabs/edit_shopsChooseType_tabs",
+    "pages/my/myShops/addShops/add_tabs/add_tabs",
+    "pages/my/myShops/addShops/edit_tabs/edit_tabs",
+    "pages/indexTo/restaurant_food_list/restaurant_food_list",
+    "pages/my/myShops/addShops/add_shops_price/add_shops_price",
+    "pages/my/myShops/addShops/add_commodity/add_commodity",
+    "pages/my/myShops/addShops/add_commodity/set_commodity_price/set_commodity_price",
+    "pages/my/myShops/addShops/commodity_edit/commodity_edit",
+    "pages/my/personalData/personalData",
+    "pages/my/myShops/addShops/xz_type_menu/xz_type_menu",
+    "pages/flashRent/userRelease/userRelease",
+    "pages/my/myReleaseInfo/myReleaseInfo",
+    "pages/my/myShops/addShops/add_tabs_content/add_tabs_content"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "租平台",
+    "navigationBarBackgroundColor": "#330066",
+    "backgroundColor": "#eeeeee",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#dddddd",
+    "selectedColor": "#330066",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/indexTo/indexTo",
+        "text": "服务",
+        "iconPath": "assets/images/ico/xihuan.png",
+        "selectedIconPath": "assets/images/ico/xihuanfill.png"
+      },
+      {
+        "pagePath": "pages/flashRent/flashRent",
+        "iconPath": "assets/images/ico/hot.png",
+        "selectedIconPath": "assets/images/ico/hot_active.png",
+        "text": "推荐"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "assets/images/ico/icon_API.png",
+        "selectedIconPath": "assets/images/ico/icon_API_HL.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 10000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "debug": true
+}

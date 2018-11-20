@@ -1,0 +1,70 @@
+<!--pages/my/personalData/personalData.wxml-->
+<!--/**  
+ *   作者:  lingfe 
+ *   时间:  2017-7-12
+ *   描述:  个人_个人资料
+ * 
+ * */-->
+<view class="page">
+        <view class="margin_left">
+            <!-- 头像  start -->
+            <view class="weui-cell_to" bindtap="chooseImage">
+                <view class="weui-cell__bd">头像</view>
+                <view class="weui-cell__ft">
+                  <image class="img_title" src="{{user.avatar}}"/>
+                </view>
+            </view>
+            <!-- 头像  end -->
+
+            <!-- 姓名  start -->
+            <view class="weui-cell_to" bindtap="bindtapClear">
+                <view class="weui-cell__bd">姓名</view>
+                <view class="weui-cell__ft">
+                  {{user.username  == "" ? '请填写' : user.username}}
+                </view>
+            </view>
+            <!-- 姓名  end -->
+
+            <!-- 地域  start -->
+            <view class="weui-cell_to"  bindtap="bindtapSearch">
+                <view class="weui-cell__bd">地域</view>
+                <view class="weui-cell__ft">
+                  {{user.address  == "" ? '请填写' : user.address}}>
+                </view>
+            </view>
+            <!-- 地域  end -->
+
+            <!-- 签名  start -->
+            <view class="weui-cell_to" data-autograph="{{userinfo.memo}}"  bindtap="bindtapAutograph">
+                <view class="weui-cell__bd">签名</view>
+                <view class="weui-cell__ft">
+                  {{user.memo  == null ? '请填写' : user.memo}}
+                </view>
+            </view>
+            <!-- 签名  end -->
+
+            <!-- 手机号  start -->
+            <view class="weui-cell_to" bindtap="bindtapPhone" style="border:none;" >
+                <view class="weui-cell__bd">手机号</view>
+                <view class="weui-cell__ft">
+                  {{user.mobile != null ? user.mobile:'未绑定'}}>
+                </view>
+            </view>
+            <!-- 手机号  end -->
+        </view>       
+</view>
+
+<!-- 弹窗 start -->
+<view class="jubao_bg" wx:if="{{isUpdateName == true}}">
+  <view class="jubao" >
+    <view class="jubao_info">修改名称</view>
+    <view class="jubao_info">
+      <input type="text" value="{{inputValue}}" bindinput="inputGetValue" placeholder="请输入名称"/>
+    </view>
+    <view class="jubao_info">
+      <text class="text_ok"  bindtap="bindtapUpdateName">确定</text>
+      <text class="text_clar" bindtap="bindtapClear">取消</text>
+    </view>
+  </view>
+</view>
+<!-- 弹窗 end -->

@@ -1,0 +1,42 @@
+/* pages/my/myReleaseInfo/myReleaseInfo.wxss */
+
+/* 菜单导航*/
+@import '/pages/flashRent/flashRent.wxss';
+
+.weui-tab{
+  top:0rpx;
+}
+.page_model {
+  margin-top: 100rpx;
+}
+
+/*状态 start */
+.xiangmu_state{
+  width:94%;
+  margin:auto;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: gray;
+  color: red;
+}
+
+/* 操作 start */
+.operation{
+  width:94%;
+  margin:auto;
+  text-align: center;
+  margin-top:-20rpx;
+  margin-bottom:20rpx;
+  display: flex;
+}
+.operation_view{
+  background-color: #006699;
+  width: 20%;
+  margin: auto;
+  color: #fff;
+  height: 60rpx;
+  line-height:55rpx;
+  font-size: 32rpx;
+  border-radius: 0rpx 0rpx 10rpx 10rpx;
+}
