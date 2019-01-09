@@ -94,7 +94,7 @@ Page({
       url: app.config.zberPath_web + 'zber_sys/price/save_or_update',
       method: "POST",
       header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
       data: form,
       success: function (res) {

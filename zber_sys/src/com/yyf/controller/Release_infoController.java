@@ -25,6 +25,7 @@ import com.yyf.model.Tab_lbt_attribute;
 import com.yyf.model.Tab_price;
 import com.yyf.model.Tab_release_info;
 import com.yyf.model.Tab_tabs;
+import com.yyf.model.Tab_tabs_content;
 import com.yyf.model.Tab_user_browse;
 import com.yyf.model.Tab_user_follow;
 import com.yyf.model.Tab_user_info;
@@ -32,6 +33,7 @@ import com.yyf.service.Ilbt_attributeService;
 import com.yyf.service.IpriceService;
 import com.yyf.service.Irelease_infoService;
 import com.yyf.service.ItabsService;
+import com.yyf.service.Itabs_contentService;
 import com.yyf.service.Iuser_browseService;
 import com.yyf.service.Iuser_followService;
 import com.yyf.service.Iuser_likeService;
@@ -78,6 +80,9 @@ public class Release_infoController {
 	
 	@Autowired
 	private Iuser_followService iuser_followService;
+	
+	@Autowired
+	private Itabs_contentService itabs_contentService;
 	
 	/**
 	 * 
@@ -249,17 +254,16 @@ public class Release_infoController {
 	 * @return
 	 */
 	@RequestMapping(value="/getWhereId",method={RequestMethod.POST, RequestMethod.GET})
-	@ResponseBody JosnModel<Map<String, Object>> getWhereId(
+	@ResponseBody JosnModel<Tab_release_info> getWhereId(
 			@RequestParam(value="id",required=false)String id,
 			@RequestParam(value="openid",required=false)String openid){
 		//实例化对象
-		Map<String, Object> map = new HashMap<String, Object>();
-		JosnModel<Map<String, Object>> josn=new JosnModel<Map<String, Object>>();
+		JosnModel<Tab_release_info> josn=new JosnModel<Tab_release_info>();
 		
 		//用户lable集合
 		List<String> lable_list=new ArrayList<String>();
 
-		//验证
+		//验证id
 	    if(!StringUtils.isEmpty(id)){
 	    	//得到项目id得到信息
 		    Tab_release_info tab_release_info=irelease_infoService.getWhereId(id);
@@ -282,14 +286,17 @@ public class Release_infoController {
         			lable_list.add("价格"+price_info.getPresent_price()+"/"+price_info.getPrice_company());
         			lable_list.add("剩余"+price_info.getSurplusNum()+"/"+price_info.getSurplusNum_company());
         			
-        			map.put("price_info", price_info);
+        			tab_release_info.price=price_info;
         		}
         		
         		//根据项目创建者得到发布者信息
-        		Tab_user_info user_info=iuserinfoMapper.getWhereOpenid(tab_release_info.getCreator());
+        		Tab_user_info  user_info=iuserinfoMapper.getWhereOpenid(tab_release_info.getCreator());
         		if(!StringUtils.isEmpty(user_info)){
-        			map.put("user_info", user_info);
+        			//根据项目创建者的id以及当前访问用户，得到关注数据
+            		Tab_user_follow user_follow=iuser_followService.getWhereUserID(user_info.getId(),openid);
+    				user_info.user_follow=user_follow;
         		}
+        		tab_release_info.user_info=user_info;
         		
         		//根据项目id得到详情轮播图属性
     			Tab_lbt_attribute lbt_attribute= ilbt_attributeService.getLbtAttributeInfo(tab_release_info.getId());
@@ -299,7 +306,8 @@ public class Release_infoController {
             		if(!StringUtils.isEmpty(images_list)){
             			lbt_attribute.images_list=images_list;
             			tab_release_info.images=images_list;
-            			map.put("lbt_attribute", lbt_attribute);
+            			
+            			tab_release_info.lbt_attribute=lbt_attribute;
             		}
     			}else{
     				//根据项目id得到详情轮播图属性,使用默认轮播图属性default_1
@@ -313,17 +321,35 @@ public class Release_infoController {
             		if(!StringUtils.isEmpty(images_list)){
             			lbt_attribute.images_list=images_list;
             			tab_release_info.images=images_list;
-            			map.put("lbt_attribute", lbt_attribute);
+            			tab_release_info.lbt_attribute=lbt_attribute;
             		}
     				
     			}
+    			
+    			//根据项目id得到该用户是否喜欢该项目
+    			tab_release_info.user_like=iproject_like_numService.getWhereOpenid(tab_release_info.getId(), openid);
         		
         		
         		//根据项目id得到tabs菜单数据
         		List<Tab_tabs> tabs_list=itabsService.getWhere_project_id(tab_release_info.getId());
-        		if(!StringUtils.isEmpty(tabs_list)){
-        			map.put("tabs_list", tabs_list);
-        		}
+        		for (Tab_tabs tab_tabs : tabs_list) {
+        			//根据商铺tabs导航菜单id，查询菜单内容数据
+        			List<Tab_tabs_content> list=itabs_contentService.getWhereGetID(tab_tabs.getId());
+        			for (Tab_tabs_content tab_tabs_content : list) {
+        				//得到图片
+        			    List<Tab_images>	images_list=iimagesMapper.getWhereLbtAttributeId(tab_tabs_content.getId());
+        				for (Tab_images tab_images : images_list) {
+        					//验证路径
+        					if(tab_images.getImgUrl().indexOf("http") ==-1){
+            					String imgUrl= SYS_GET.GET_IMG_PATH_URL + tab_images.getImgUrl();
+                				tab_images.setImgUrl(imgUrl);
+            				}
+        				}
+        				tab_tabs_content.images_list=images_list;
+        			}
+        			tab_tabs.tabs_content_List=list;
+				}
+        		tab_release_info.tabs_list=tabs_list;
         		
         		//根据项目id得到该项目喜欢的人数
         		int like_num= iproject_like_numService.getProjectLikeNum(tab_release_info.getId());
@@ -347,14 +373,14 @@ public class Release_infoController {
         		iuser_browseService.save(tab_user_browse);
     			
         		//保存标签
-        		map.put("lable_list", lable_list);
-        		//保存项目信息
-    			map.put("tab_release_info",tab_release_info);
+        		tab_release_info.lable_list=lable_list;
+        		//返回项目信息
+        		josn.msg="获取成功!";
+    	    	josn.data=tab_release_info;
+    	    	josn.state=200;
+    		}else{
+    			josn.msg="该id的内容是空的！";
     		}
-			
-    		josn.msg="成功!";
-	    	josn.data=map;
-	    	josn.state=200;
 	    }else{
 	    	josn.msg="项目id不能为空!";
 	    }

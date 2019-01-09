@@ -19,10 +19,11 @@
     <view class="infoSource_name">
       <text>{{user_info.username}}</text>
       <text class='infoSource_name_' wx:if="{{user_info.is_authentication == 1}}">已实名</text>
-      <text class='infoSource_name_' wx:else>未认证,请谨慎交易!</text>
+      <text class='infoSource_name_' wx:else>未认证</text>
     </view>
     <view  wx:if="{{user_info.is_follow == 1}}">
-      <view class='infoSource_follow follow_true'  wx:if="{{user_follow.state == 1}}" bindtap='btnSetFollow'
+      <view class='infoSource_follow follow_true' 
+       wx:if="{{user_info.user_follow.state == 1}}" bindtap='btnSetFollow'
      data-userid='{{user_info.id}}'
      data-state='0' >已关注</view>
       <view class='infoSource_follow' bindtap='btnSetFollow'

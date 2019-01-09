@@ -29,7 +29,7 @@
         wx:key="{{item}}">{{item}}</text>
 
         <!-- 描述 -->
-        <text wx:if="{{tab_release_info.describe_info}}">{{tab_release_info.describe_info}}</text>
+        <text wx:if="{{describe_info}}">{{describe_info}}</text>
       </view>
 </template>
 <!-- 标签+描述 end -->

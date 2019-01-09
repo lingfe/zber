@@ -2,7 +2,8 @@
 <view class='page'>
   <!-- 模块菜单选择 start -->
   <view class='find_menu'>
-    <navigator wx:if="{{list.length != 0}}" url="/pages/my/myShops/addShops/addShops?id={{item.id}}" 
+    <navigator wx:if="{{list.length != 0}}" 
+    url="/pages/my/myShops/addShops/addShops?id={{item.id}}" 
     wx:for="{{list}}"  wx:key="{{item.id}}" class='menu'>
        <image class='menu_img' src='{{item.logo}}'></image>
        <view class='menu_text'>{{item.shopsName}}</view>

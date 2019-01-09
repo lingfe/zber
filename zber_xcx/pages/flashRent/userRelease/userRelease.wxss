@@ -2,3 +2,33 @@
 @import '/pages/indexTo/admissionApply/applyMerchant/applyMerchant.wxss';
 /* 项目详情 */
 @import '/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail';
+
+.weui-tab__panel{
+  padding-bottom:120rpx;
+}
+
+/*+*/
+.botton_creator{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-top: 1rpx solid #eee;
+  position: fixed;
+  bottom: 0rpx;
+  background-color: #330066;
+  color: #fff;
+  font-size: 32rpx;
+}
+.botton_creator:active{
+  opacity: 0.5;
+}
+.to{
+  bottom: 100rpx;
+  right: 30rpx;
+  height: 100rpx;
+  line-height: 90rpx;
+  width: 100rpx;
+  border-radius: 50%;
+  font-size: 70rpx;
+}

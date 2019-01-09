@@ -15,7 +15,6 @@
 .weui-tab__panel {
   box-sizing:border-box;
   height:49%;
-  overflow:auto;
   padding-bottom:57rpx; 
   -webkit-overflow-scrolling:touch;
 }

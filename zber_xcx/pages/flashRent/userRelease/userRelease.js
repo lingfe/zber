@@ -15,6 +15,7 @@ Page({
     getImage: app.config.getImage,
     //布局说明
     bujusming_list: app.localData.bujusming_list,
+    tabs_content:[],//tabs导航菜单内容
   },
 
   /**
@@ -32,7 +33,7 @@ Page({
     }
     that.setData({
       'releaseInfo.user_info':user,
-      type_menu_id: options.type_menu_id,
+      'form.typeMenu_id': options.type_menu_id,
       id:options.id,
     });
 
@@ -40,7 +41,140 @@ Page({
     that.getWhereId(that);
   },
 
-  //根据项目id得到信息
+  //跳转到tabs导航菜单内容编辑内容页面
+  updateTabaContent: function (e) {
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_tabs_content/add_tabs_content?id=' + e.currentTarget.id,
+    })
+  },
+
+  //根据tabs导航菜单内容id删除内容
+  deleteTabaContent: function (e) {
+    var that = this;
+    var id = e.currentTarget.id;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/tabs_content/deleteWhereId',
+      method: "get",
+      data: {
+        id: id,
+      },
+      success: function (res) {
+        console.log(res);
+        if (res.data.state == 200) {
+          //刷新
+          //根据tabs导航菜单id得到该菜单内容
+          that.getWhereGetID(that.data.tabs_id);
+        }
+        app.showModal(res.data.msg);
+      }
+    })
+  },
+
+  //点击跳转到添加tabs导航菜单内容
+  add_tabs_content: function (e) {
+    var that = this;
+    //得到tabs导航菜单id
+    var tabs_id = that.data.tabs_id;
+    //验证非空
+    if (!app.checkInput(tabs_id)) {
+      wx.navigateTo({
+        url: '/pages/my/myShops/addShops/add_tabs_content/add_tabs_content?tabs_id=' + tabs_id,
+      });
+    } else {
+      app.showModal("未选择tabs导航菜单，如有问题请联系管理员:18585094270");
+    }
+  },
+
+  //根据tabs导航菜单id得到内容
+  getWhereGetID: function (id) {
+    var that = this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/tabs_content/getWhereGetID',
+      method: "get",
+      data: {
+        get_id: id,
+      },
+      success: function (res) {
+        var data = res.data;
+        if (data.state == 200) {
+          that.setData({
+            tabs_content: data.data
+          });
+        } else {
+          app.showModal(data.msg);
+        }
+      }
+    })
+  },
+
+  //tabs导航菜单，点击切换
+  tabClick: function (e) {
+    var that = this;
+    var id = e.currentTarget.id;
+
+    if (!app.checkInput(id)) {
+      //根据tabs导航菜单id得到该菜单内容
+      that.getWhereGetID(id);
+    } else {
+      that.setData({
+        tabs_content: null,
+      });
+    }
+
+    //设置
+    that.setData({
+      //将该id放入data中
+      tabs_id: id,
+      activeIndex: e.currentTarget.dataset.index,
+    });
+  },
+
+  //删除tabs导航菜单
+  bindtapDeleteTabs: function (e) {
+    var that = this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/tabs/deleteWhereId',
+      method: "get",
+      data: {
+        id: e.currentTarget.dataset.tabsid,
+      },
+      success: function (res) {
+        console.log(res);
+        app.showModal(res.data.msg);
+        if (res.data.state == 200) {
+          that.setData({
+            'releaseInfo.tabs_list': res.data.data
+          });
+        }
+      }
+    })
+  },
+
+  //跳转到,编辑tabs导航菜单页面
+  edit_tabs: function (e) {
+    var param = 'tabs_id=' + e.currentTarget.dataset.tabsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/edit_tabs/edit_tabs?' + param,
+    });
+  },
+
+  //跳转到,添加tabs导航菜单页面
+  add_tabs: function (e) {
+    var param = 'shops_id=' + e.currentTarget.id;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_tabs/add_tabs?' + param,
+    })
+  },
+
+  //跳转到选择分类菜单页面
+  xz_type_menu: function (e) {
+    var param = 'id=' + e.currentTarget.dataset.tmid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?' + param,
+    })
+  },
+
+  //根据项目id得到详情信息
   getWhereId: function (that) {
     wx.request({
       url: app.config.zberPath_web + 'zber_sys/release_info/getWhereId',
@@ -78,7 +212,7 @@ Page({
           }
 
           that.setData({
-            form: releaseInfo.tab_release_info,
+            form: releaseInfo,
             releaseInfo: releaseInfo,
             info: info,
           });
@@ -124,7 +258,7 @@ Page({
       //验证id是否为空
       if (!app.checkInput(id)) {
         wx.uploadFile({
-          url: app.config.zber_domain + "zber_sys/images/imageUpload",//单张图片上传
+          url: app.config.getImage + "images/imageUpload",//单张图片上传
           filePath: path[0] + "",                 //要上传文件资源的路径
           name: 'file',     //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
           header: {                                   //HTTP 请求 Header , header 中不能设置 Referer
@@ -179,8 +313,13 @@ Page({
           }
 
           that.setData({
-            id:data.id
+            id:data.id,
+            tab_index:0,
           });
+
+          app.showToast(res.data.msg, "none");
+          //根据项目id得到信息
+          that.getWhereId(that);
         } else if (res.data.state == 401) {
           app.btnLogin(res.data);
         }
@@ -220,7 +359,7 @@ Page({
             var area = address.substring(city_index, area_index);
 
             that.setData({
-              "address": address,
+              "form.address": address,
               "form.position_info": res.name,
               city: city,
             });

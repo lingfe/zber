@@ -68,12 +68,7 @@
   width: 96%;
   margin: auto;
 }
-.pro_title{
-  width: 100%;
-  font-size: 30rpx;
-  font-weight: bold;
-  padding: 30rpx;
-}
+
 /* 操作 start */
 .operation{
   text-align: center;
@@ -90,7 +85,12 @@
   border-radius: 20rpx 20rpx 0rpx 0rpx;
 }
 /* 操作 end */
-
+.pro_title{
+  width: 100%;
+  font-size: 30rpx;
+  font-weight: bold;
+  padding: 30rpx;
+}
 .pro_content{
   letter-spacing: 2rpx;
   line-height: 54rpx;
@@ -105,6 +105,9 @@
 }
 .content_Bold{
   font-weight:bold;
+}
+.image_list{
+  padding-top: 30rpx;
 }
 .pro_img{
    width: 100%;

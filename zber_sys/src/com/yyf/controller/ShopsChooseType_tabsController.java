@@ -85,16 +85,18 @@ public class ShopsChooseType_tabsController {
 	 */
 	@RequestMapping(value="/deleteWhereId",method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody 
-	JosnModel<String> deleteWhereId(@RequestParam(value="id",required=false)String id){
+	JosnModel<List<Tab_shopsChooseType_tabs>> deleteWhereId(@RequestParam(value="id",required=false)String id){
 		//实例化 对象
-		JosnModel<String> josn=new JosnModel<String>();
+		JosnModel<List<Tab_shopsChooseType_tabs>> josn=new JosnModel<List<Tab_shopsChooseType_tabs>>();
 		if(!StringUtils.isEmpty(id)){
+			Tab_shopsChooseType_tabs info=ishopsChooseType_tabsService.getWhereId(id);
 			//执行删除
 			int tt =ishopsChooseType_tabsService.deleteWhereId(id);
 			if(tt>=1){
 				josn.state=200;
 				josn.msg="删除成功!";
-				josn.data=id;
+				//重新根据商铺id得到选购分类菜单tabs
+				josn.data=ishopsChooseType_tabsService.getWhereShopsId(info.getShops_id());
 			}else{
 				josn.msg="删除失败!";
 			}

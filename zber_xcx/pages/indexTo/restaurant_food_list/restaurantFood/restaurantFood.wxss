@@ -12,6 +12,9 @@
 /*底部*/
 @import '/assets/wxss/bottom.wxss';
 
+page{
+  background-color: #eee;
+}
 .model_content{
   padding-bottom:30rpx;
   text-align: center;

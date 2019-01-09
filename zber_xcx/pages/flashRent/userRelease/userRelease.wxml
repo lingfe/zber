@@ -29,9 +29,7 @@
         <import src="/assets/wxml/label_and_description.wxml" />
         <import src="/assets/wxml/infoSources.wxml" />
         <import src="/assets/wxml/tabsMenu.wxml" />
-
         <view class='page'>
-
           <!-- 参数 start -->
           <view class='neiro_model'>
               <!-- 轮播图 start -->
@@ -39,28 +37,28 @@
               <!-- 轮播图 end -->
 
               <!-- 标题 -->
-              <view class='model_title'>{{releaseInfo.tab_release_info.title}}</view>
+              <view class='model_title'>{{releaseInfo.title}}</view>
 
               <!-- 标签+描述 -->
-              <template is="label_and_description" data="{{lable_list,...releaseInfo}}" />
+              <template is="label_and_description" data="{{...releaseInfo}}" />
               <!-- 标签+描述 end -->
           </view>
           <!-- 参数 end -->
 
           <!-- 信息来源  start -->
-          <template is="infoSources" data="{{...releaseInfo,user_follow}}" />
+          <template is="infoSources" data="{{...releaseInfo}}" />
           <!-- 信息来源  end -->
 
           <!-- tab切换  start -->
-          <template is="tabsMenu" data="{{info,activeIndex}}" />
+          <template is="tabsMenu_model3" data="{{...releaseInfo,activeIndex}}" />
           <!-- tab切换 end -->
 
           <!-- tabs内容，图片与文字布局  start-->
-          <template is="imageText" data="{{info,activeIndex}}" />
+          <template is="imageText_model1" data="{{tabs_content,activeIndex}}" />
           <!-- tabs内容，图片与文字布局  end-->
 
           <!-- 底部 start -->
-          <template is="bottom" data="{{ax}}" />
+          <template is="bottom" data="{{...releaseInfo}}" />
           <!-- 底部 end -->
         </view>
       </view>
@@ -86,20 +84,23 @@
                           <view class="weui-uploader__files" id="uploaderFiles">
                             <block wx:for="{{form.images}}" wx:key="{{item.id}}">
                               <view wx:if="{{item !=null}}" 
-                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                class="weui-uploader__file" 
+                                bindlongtap="previewImage" id="{{item}}">
                                 <image class="img_tt" 
-                                src="/assets/images/other/delete.png" 
-                                bindtouchend="bindtapImageDelete_images" data-img="{{item.imgUrl}}" />
+                                  src="/assets/images/other/delete.png" 
+                                  bindtouchend="bindtapImageDelete_images" 
+                                  data-img="{{item.imgUrl}}" />
                                 <image class="weui-uploader__img" 
-                                 src="{{getImage}}{{item.imgUrl}}" mode="aspectFill" />
+                                 src="{{item.imgUrl}}" mode="aspectFill" />
                               </view>
                             </block>
                             <block wx:for="{{arr}}" wx:key="{{item}}">
                               <view wx:if="{{item !=null}}" 
-                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                class="weui-uploader__file" 
+                                bindlongtap="previewImage" id="{{item}}">
                                 <image class="img_tt" 
-                                src="/assets/images/other/delete.png" 
-                                bindtouchend="bindtapImageDelete" data-img="{{item}}" />
+                                  src="/assets/images/other/delete.png" 
+                                  bindtouchend="bindtapImageDelete" data-img="{{item}}" />
                                 <image class="weui-uploader__img" 
                                  src="{{item}}" mode="aspectFill" />
                               </view>
@@ -119,10 +120,12 @@
                 <view class='page_Fundraising_title_text'>
                   <view class='page_Fundraising_title_text_title'>
                   选择分类菜单<text style='color:red;'>*</text></view>
-                  <navigator
-                    url="/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?id={{form.typeMenu_id}}" 
+                  <!-- 跳转到选择分类菜单页面 -->
+                  <view bindtap='xz_type_menu' 
+                    data-tmid='{{form.typeMenu_id}}'
                     class='page_Fundraising_image_title_text'>
-                  选择>></navigator>
+                    选择>>
+                  </view>
                 </view>
                 <view class='page_Fundraising_input_input'>
                   <input disabled='disabled'  type='text' value='{{form.typeMenu_id}}' 
@@ -138,7 +141,7 @@
               标题<text style='color:red;'>*</text></view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='number' name="title" value='{{form.title}}' 
+              <input type='text' name="title" value='{{form.title}}' 
               maxlength='50'
               placeholder='请输入标题'></input>
             </view>
@@ -213,14 +216,17 @@
               <view class='pro_content' wx:if="{{pro.content != null}}">
                 <text>{{pro.content}}</text>
                 <!-- 加粗的内容content_Bold -->
-                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+                <span class='content_Bold' 
+                wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
               </view>
               <!-- 内容加粗content_Bold -->
               <view class='pro_content' wx:elif="{{pro.content_Bold != null}}">
-                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+                <span class='content_Bold' 
+                wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
               </view>
               <!-- 图片img -->
-              <image mode="widthFix" wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
+              <image mode="widthFix" 
+              wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
               <!-- 图片说明文字text -->
               <view class='img_text' wx:if="{{pro.text != null}}">{{pro.text}}</view>
           </view>

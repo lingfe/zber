@@ -28,33 +28,6 @@ Page({
     that.data.id=options.id;
     //根据商铺id得到商铺详情
     that.getWhereId_detail(that);
-    //获取用户是否喜欢该项目
-    that.getUserLike(that);
-  },
-
-  //获取用户是否喜欢该项目
-  getUserLike: function (that) {
-    wx.request({
-      url: app.config.zberPath_web + 'zber_sys/user_like/get',
-      method: "Post",
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-      },
-      data: {
-        project_id: that.data.id,
-        openid: wx.getStorageSync("openid")
-      },
-      success: function (res) {
-        console.log(res);
-        if (res.data.state == 200) {
-          that.setData({
-            ax: res.data.data.state
-          });
-        } else {
-          app.showModal(res.data.msg);
-        }
-      }
-    })
   },
 
   //设定该项目是否喜欢
@@ -74,7 +47,7 @@ Page({
         console.log(res);
         if (res.data.state == 200) {
           that.setData({
-            ax: res.data.data.state
+            'basicInfo.user_like': res.data.data
           });
         } else {
           app.showModal(res.data.msg);
@@ -86,28 +59,30 @@ Page({
   //点击(关注/取消关注)
   btnSetFollow: function (e) {
     var that = this;
-    that.data.user_follow.user_id = e.currentTarget.dataset.userid;
-    that.data.user_follow.state = e.currentTarget.dataset.state;
-    that.data.user_follow.creator = wx.getStorageSync("openid");
+    var user_follow={};
+    user_follow.user_id = e.currentTarget.dataset.userid;
+    user_follow.state = e.currentTarget.dataset.state;
+    user_follow.creator = wx.getStorageSync("openid");
 
     //关注数据,获取或保存或修改
-    that.get_or_save_or_update(that);
+    that.get_or_save_or_update(user_follow);
   },
 
   //关注数据,获取或保存或修改
-  get_or_save_or_update: function (that) {
+  get_or_save_or_update: function (user_follow) {
+    var that=this;
     wx.request({
       url: app.config.zberPath_web + 'zber_sys/user_follow/get_or_save_or_update',
       method: "POST",
       header: {
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
       },
-      data: that.data.user_follow,
+      data: user_follow,
       success: function (res) {
         console.log(res);
         if (res.data.state == 200) {
           that.setData({
-            user_follow: res.data.data,
+            'basicInfo.user_info.user_follow': res.data.data,
           });
         } else {
           app.showModal(res.data.msg);
@@ -138,15 +113,6 @@ Page({
             //基本信息
             basicInfo: basicInfo
           });
-
-          //关注数据,获取
-          that.data.user_follow = {
-            creator: wx.getStorageSync("openid"),
-            state: 0,
-            user_id: res.data.data.user_info.id,
-            modify: "get",
-          };
-          that.get_or_save_or_update(that);
         }
       }
     })

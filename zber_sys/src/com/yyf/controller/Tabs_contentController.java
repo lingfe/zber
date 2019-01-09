@@ -39,6 +39,47 @@ public class Tabs_contentController {
 	
 	/**
 	 * 
+	 * 根据tabs导航菜单内容id标识得到数据
+	 * @author lingfe     
+	 * @created 2018年11月20日 下午12:57:09  
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/getWhereId",method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody 
+	JosnModel<Object> getWhereId(@RequestParam(value="id",required=false)String id){
+		//实例化对象
+		JosnModel<Object> josn=new JosnModel<Object>();
+		if(!StringUtils.isEmpty(id)){
+			//得到数据
+			Tab_tabs_content info=itabs_contentService.getWhereId(id);
+			if(!StringUtils.isEmpty(info)){
+				//验证图片路径
+				List<Tab_images> images_list=iimagesService.getWhereLbtAttributeId(info.getId());
+				for (Tab_images tab_images : images_list) {
+					//验证路径
+					if(tab_images.getImgUrl().indexOf("http") ==-1){
+    					String imgUrl= SYS_GET.GET_IMG_PATH_URL + tab_images.getImgUrl();
+        				tab_images.setImgUrl(imgUrl);
+    				}
+				}
+				info.images_list=images_list;
+				
+				josn.msg="获取成功！";
+				josn.state=200;
+				josn.data=info;
+			}else{
+				josn.msg="null!请检查id!";
+			}
+		}else{
+			josn.msg="id无效!不能为空!";
+		}
+		
+		return josn;
+	}
+	
+	/**
+	 * 
 	 * 根据tabs导航菜单内容id删除
 	 * @author lingfe     
 	 * @created 2018年11月19日 上午10:41:58  

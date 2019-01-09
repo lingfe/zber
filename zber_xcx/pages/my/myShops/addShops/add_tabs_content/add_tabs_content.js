@@ -17,6 +17,31 @@ Page({
     var that=this;
     that.setData({
       tabs_id:options.tabs_id,
+      id:options.id,
+    });
+
+    if(!app.checkInput(options.id)){
+      //根据tabs导航菜单内容id标识得到数据
+      that.getWhereId(that);
+    }else{
+      that.setData({'form.id':null});
+    }
+  },
+
+  //根据tabs导航菜单内容id标识得到数据
+  getWhereId:function(that){
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/tabs_content/getWhereId',
+      method:"get",
+      data:{id:that.data.id},
+      success:function(res){
+        var data=res.data;
+        if(data.state == 200){
+          that.setData({
+            form:data.data
+          });
+        }
+      }
     });
   },
 
@@ -24,6 +49,9 @@ Page({
   bindFormSubmit: function (e) {
     var that = this;
     var form = [];
+    if(!app.checkInput(that.data.form.id)){
+      form.id=that.data.form.id;
+    }
     form.get_id = that.data.tabs_id; //tabs导航菜单id
     form.model = 0; //布局model
     form.title = e.detail.value.title; //标题
@@ -88,26 +116,59 @@ Page({
               //上传图片数组
               uploadimg(arr.splice(0, 1), [], arr, data.id);
             }
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: res.data.msg,
-              success: function (res) {
-                if (res.confirm) {
-                  //返回上一页
-                  wx.navigateBack(2);
-                }
+          } 
+          wx.showModal({
+            title: '提示',
+            content: res.data.msg+"是否返回?",
+            success: function (res) {
+              if (res.confirm) {
+                //返回上一页
+                wx.navigateBack(2);
               }
-            });
-          }
+            }
+          });
         } else if (res.data.state == 401) {
           app.btnLogin(res.data);
-        }
-        else {
+        }else {
           app.showModal(res.data.msg);
         }
       }
     })
+  },
+
+  //根据图片id删除图片信息
+  setDelImages: function (id) {
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/images/deleteWhereId',
+      method: "POST",
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      },
+      data: { id: id },
+      success: function (res) {
+        console.log(res);
+      }
+    })
+  },
+
+
+  //删除图片
+  bindtapImageDelete_images: function (e) {
+    var img = e.currentTarget.dataset.img;
+    var that = this;
+    var images_list = that.data.form.images_list;
+
+    for (var j = 0; j < images_list.length; j++) {
+      if (images_list[j].imgUrl == img) {
+        //根据图片id删除图片
+        that.setDelImages(images_list[j].id);
+        images_list.splice(j, 1);
+      }
+    }
+
+    that.setData({
+      'form.images_list': images_list
+    });
   },
 
   //删除图片

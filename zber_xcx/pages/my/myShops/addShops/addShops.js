@@ -1,7 +1,4 @@
 // pages/my/myShops/addShops/addShops.js
-var navigatorData = require('../../../../assets/localData/navigatorData');
-var shopsDetailsData = require('../../../../assets/localData/shopsDetailsData');
-
 var app=getApp();
 Page({
 
@@ -14,16 +11,11 @@ Page({
     activeIndex: -1,         //tab切换下标   
     activeIndex_to:-1,
 
-    ax: 1,
-    jia:"+",
     arr: [],  //选择图片的数组，预留。不包含编辑之前的数据，用于组装
     //布局说明
     bujusming_list:app.localData.bujusming_list,
-    //跳转url
-    navigator: navigatorData.navigator,
-    getImage:app.config.getImage
-  },
-
+  }, 
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -47,6 +39,140 @@ Page({
     that.setData({
       id:options.id,
       user_info: wx.getStorageSync("userInfo")
+    })
+  },
+  
+  //跳转到设置价格参数页面
+  add_shops_price:function(e){
+    var param = 'shops_id=' + e.currentTarget.dataset.shopsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_shops_price/add_shops_price?' + param,
+    })
+  },
+
+  //跳转到选择分类菜单页面
+  xz_type_menu:function(e){
+    var param ='id='+ e.currentTarget.dataset.tmid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?' + param,
+    })
+  },
+
+  //添加商铺商品
+  add_commodity:function(e){
+    var param = 'sctt='+ e.currentTarget.dataset.sctt+
+      '&shops_id='+ e.currentTarget.dataset.shopsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_commodity/add_commodity?' + param,
+    })
+  },
+
+  //删除商铺商品信息
+  delete_commodity: function (e) {
+    var that = this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/shops_commodity/deleteWhereId',
+      method: "get",
+      data: {
+        id: e.currentTarget.id,
+      },
+      success: function (res) {
+        app.showModal(res.data.msg);
+        if (res.data.state = 200) {
+          //根据根据shopsChooseType_tabs_id得到商品集合
+          that.getWhereShopsChooseType_tabs_id(that.data.shopsChooseType_tabs_id);
+        }
+      }
+    })
+  },
+
+  //编辑商铺商品
+  commodity_edit:function(e){
+    var param = 'id='+e.currentTarget.id+
+      '&shops_id='+ e.currentTarget.dataset.shopsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/commodity_edit/commodity_edit?' + param,
+    })
+  },
+
+  //删除商铺导航菜单-->选购分类tabs菜单
+  bindtapDeleteShopChooseTypeTabs: function (e) {
+    var that = this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/shopsChooseType_tabs/deleteWhereId',
+      method: "get",
+      data: {
+        id: e.currentTarget.dataset.sctt,
+      },
+      success: function (res) {
+        console.log(res);
+        app.showModal(res.data.msg);
+        if (res.data.state == 200) {
+          that.setData({
+            'basicInfo.shopsChooseType_tabs_list': res.data.data
+          });
+        }
+      }
+    })
+  },
+
+  //跳转到,编辑商铺导航菜单-->选购分类tabs菜单页面
+  edit_shopsChooseType_tabs: function (e) {
+    var param = 'sctt='+ e.currentTarget.dataset.sctt;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/edit_shopsChooseType_tabs/edit_shopsChooseType_tabs?' +                  param,
+    })
+  },
+
+  //跳转到,添加商铺导航菜单-->选购分类tabs菜单页面
+  add_shopsChooseType_tabs:function(e){
+    var param = 'shops_id='+e.currentTarget.dataset.shopsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_shopsChooseType_tabs/add_shopsChooseType_tabs?' +param,
+    })
+  },
+
+  //删除商铺tabs导航菜单
+  bindtapDeleteTabs: function (e) {
+    var that = this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/tabs/deleteWhereId',
+      method: "get",
+      data: {
+        id: e.currentTarget.dataset.tabsid,
+      },
+      success: function (res) {
+        console.log(res);
+        app.showModal(res.data.msg);
+        if (res.data.state == 200) {
+          that.setData({
+            'basicInfo.tabs_list':res.data.data
+          });
+        }
+      }
+    })
+  },
+
+  //跳转到,编辑商铺tabs导航菜单页面
+  edit_tabs:function (e) {
+    var param = 'tabs_id='+ e.currentTarget.dataset.tabsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/edit_tabs/edit_tabs?' + param,
+    });
+  },
+
+  //跳转到,添加商铺tabs导航菜单页面
+  add_tabs:function(e){
+    var param='shops_id='+e.currentTarget.dataset.shopsid;
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_tabs/add_tabs?'+param,
+    })
+  },
+
+  //跳转到tabs导航菜单内容编辑内容页面
+  updateTabaContent:function(e){
+    wx.navigateTo({
+      url: '/pages/my/myShops/addShops/add_tabs_content/add_tabs_content?id='+e.currentTarget.id,
     })
   },
 
@@ -137,41 +263,11 @@ Page({
       success: function (res) {
         if (res.data.state = 200) {
           that.setData({
-            //标签
-            lable_list: res.data.data.lable_list,
-            //用户信息
-            user_info: res.data.data.user_info,
-            //tabs导航菜单
-            info: res.data.data.tabs_list,
-            //选购tabs分类菜单
-            shopsChooseType_tabs_list: res.data.data.shopsChooseType_tabs_list,
-            //推荐商品
-            commodity_list: res.data.data.commodity_list,
             //基本信息
             basicInfo: res.data.data,
             address:res.data.data.address,
             logo:res.data.data.logo,
-            
           });
-        }
-      }
-    })
-  },
-
-  //根据商品id删除商品信息
-  delete_commodity:function(e){
-    var that=this;
-    wx.request({
-      url: app.config.zberPath_web + 'zber_sys/shops_commodity/deleteWhereId',
-      method: "get",
-      data: {
-        id: e.currentTarget.id,
-      },
-      success:function(res){
-        app.showModal(res.data.msg);
-        if(res.data.state=200){
-          //根据根据shopsChooseType_tabs_id得到商品集合
-          that.getWhereShopsChooseType_tabs_id(that.data.shopsChooseType_tabs_id);
         }
       }
     })
@@ -183,46 +279,6 @@ Page({
     that.setData({
       commodity_id:e.currentTarget.id
     });
-  },
-
-  //根据选购分类tabs菜单id删除
-  bindtapDeleteShopChooseTypeTabs:function(e){
-    var that=this;
-    wx.request({
-      url: app.config.zberPath_web + 'zber_sys/shopsChooseType_tabs/deleteWhereId',
-      method:"get",
-      data:{
-        id:e.currentTarget.id,
-      },
-      success:function(res){
-        console.log(res);
-        app.showModal(res.data.msg);
-        if(res.data.state==200){
-          //根据shops_id得到商铺选购分类tabs集合
-          that.getWhereShopsId(that.data.id);
-        }
-      }
-    })
-  },
-
-  //根据导航tabs菜单id删除
-  bindtapDeleteTabs:function(e){
-    var that = this;
-    wx.request({
-      url: app.config.zberPath_web + 'zber_sys/tabs/deleteWhereId',
-      method: "get",
-      data: {
-        id: e.currentTarget.id,
-      },
-      success: function (res) {
-        console.log(res);
-        app.showModal(res.data.msg);
-        if (res.data.state == 200) {
-          //根据商铺id得到tabs导航菜单
-          that.getWhereShopsId_tabsList(that.data.id);
-        }
-      }
-    })
   },
 
   //根据shops_id得到商铺选购分类tabs集合
@@ -461,7 +517,7 @@ Page({
       success:function(res){
         console.log(res);
         that.setData({
-          commodity_list:res.data.data
+          'basicInfo.commodity_list':res.data.data
         });
       }
     })

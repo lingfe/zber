@@ -11,7 +11,7 @@
               标题<text style='color:#000;'>(选填)</text></view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='text' name="title" maxlength='100'
+              <input type='text' name="title" maxlength='100' value='{{form.title}}'
               placeholder='请输入内容标题'></input>
             </view>
           </view>
@@ -24,7 +24,7 @@
               内容加粗，放在内容首<text style='color:#000;'>(选填)</text> </view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='text' name="content_bold_first"
+              <input type='text' name="content_bold_first" value='{{form.content_bold_first}}'
               placeholder='请输入..'></input>
             </view>
           </view>
@@ -36,9 +36,11 @@
               <view class='page_Fundraising_title_text_title'>
               内容<text style='color:#000;'>(选填)</text></view>
             </view>
-            <view class='page_Fundraising_input_input'>
-              <input type='text' name="content"
-              placeholder='请输入内容'></input>
+            <view class='page_Fundraising_input_textarea'>
+              <textarea  value='{{form.content}}' 
+              name="content"
+              maxlength='1000'
+              placeholder='请输入内容'></textarea>
             </view>
           </view>
           <!-- 内容   end-->
@@ -50,7 +52,8 @@
               内容加粗，放在内容尾<text style='color:#000;'>(选填)</text> </view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='text' name="content_bold_tail" placeholder='请输入..'></input>
+              <input type='text' name="content_bold_tail" 
+              value='{{form.content_bold_tail}}' placeholder='请输入..'></input>
             </view>
           </view>
           <!-- 内容加粗，放在内容尾   end-->
@@ -62,7 +65,8 @@
               内容2,当加粗内容在需要放在中间时使用。<text style='color:#000;'>(选填)</text> </view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='text' name="content_to" placeholder='请输入..'></input>
+              <input type='text' name="content_to" 
+              value='{{form.content_to}}' placeholder='请输入..'></input>
             </view>
           </view>
           <!-- 内容2,当加粗内容在需要放在中间时使用。   end-->
@@ -77,7 +81,7 @@
               <view class='page_Fundraising_image_text'>请选择清晰、干净、明了的图片
               </view>
               <!-- 选择图片 -->
-              <template is="other_select_picture" data="{{arr}}"/>
+              <template is="other_select_picture" data="{{...form,arr}}"/>
             </view>
           </view>
           <!-- 上传内容图片   end-->
@@ -89,7 +93,8 @@
               图片说明文本<text style='color:#000;'>(选填)</text> </view>
             </view>
             <view class='page_Fundraising_input_input'>
-              <input type='text' name="img_txt" placeholder='请输入..'></input>
+              <input type='text' name="img_txt" 
+              value='{{form.img_txt}}' placeholder='请输入..'></input>
             </view>
           </view>
           <!-- 图片说明文本   end-->
@@ -97,7 +102,8 @@
           <!-- 提交审核 start -->
           <view class="page_btn">
             <button class="page_btn_button" formType="submit">
-            提交审核</button>
+              {{form.id == null?'提交审核':'确定编辑'}}
+            </button>
           </view>
           <!-- 提交审核  end -->
     </form>        

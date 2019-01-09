@@ -11,7 +11,12 @@ package com.yyf.controller.util;
 public  class SYS_GET {
 	
 	/**
-	 * get图片路径
+	 * get或set图片路径 server(服务器）
 	 */
-	public static String  GET_IMG_PATH_URL="https://lingfe.club/zber_sys/";
+	//public static String  GET_IMG_PATH_URL="https://lingfe.club/zber_sys/";
+	
+	/**
+	 * get或set图片路径 localhost(本地路径）
+	 */
+	public static String  GET_IMG_PATH_URL="http://localhost:8080/zber_sys/";
 }

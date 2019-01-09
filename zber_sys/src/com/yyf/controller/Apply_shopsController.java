@@ -271,7 +271,15 @@ public class Apply_shopsController {
 			if(!StringUtils.isEmpty(shops)){
 				
 				//根据商铺id得到商铺照片集合
-				shops.setImages_list(iimagesMapper.getWhereLbtAttributeId(shops.getId()));
+				List<Tab_images> images_list=iimagesMapper.getWhereLbtAttributeId(shops.getId());
+				for (Tab_images tab_images : images_list) {
+					//验证图片路径
+					if(tab_images.getImgUrl().indexOf("http") ==-1){
+    					String imgUrl= SYS_GET.GET_IMG_PATH_URL + tab_images.getImgUrl();
+        				tab_images.setImgUrl(imgUrl);
+    				}
+				}
+				shops.setImages_list(images_list);
 				
 				//根据商铺id得到价格参数
 				Tab_price price=ipriceService.getWhwereSetId(shops.getId());
@@ -285,6 +293,11 @@ public class Apply_shopsController {
 				List<Tab_shops_commodity> commodity_list=ishops_commodityService.getWhere_shops_recommend(shops.getId());			
 				for (int j = 0; j < commodity_list.size(); j++) {
 					Tab_shops_commodity commodity=commodity_list.get(j);
+					//验证图片路径
+					if(commodity.getImg().indexOf("http") ==-1){
+    					String img= SYS_GET.GET_IMG_PATH_URL + commodity.getImg();
+    					commodity.setImg(img);
+    				}
 					//得到该商品的价格参数
 					commodity.price=ipriceService.getWhwereSetId(commodity.getId());
 					//根据商铺id得到该项目喜欢的人数
@@ -317,9 +330,14 @@ public class Apply_shopsController {
         		//根据商铺创建者得到用户信息
         		Tab_user_info  user_info=iuserinfoMapper.getWhereOpenid(shops.getCreator());
         		if(!StringUtils.isEmpty(user_info)){
+        			//验证图片路径
+					if(user_info.getAvatar().indexOf("http") ==-1){
+    					String avatar= SYS_GET.GET_IMG_PATH_URL + user_info.getAvatar();
+    					user_info.setAvatar(avatar);
+    				}
         			//根据商铺创建者的id以及当前访问用户，得到关注数据
-            		Tab_user_follow user_follow=iuser_followService.getWhereUserID(user_info.getId(), shops.getCreator());
-    				user_info.user_follow=user_follow;
+            		Tab_user_follow user_follow=iuser_followService.getWhereUserID(user_info.getId(), openid);
+            		user_info.user_follow=user_follow;
         		}
         		shops.user_info=user_info;
         		
@@ -330,7 +348,7 @@ public class Apply_shopsController {
         			List<Tab_tabs_content> list=itabs_contentService.getWhereGetID(tab_tabs.getId());
         			for (Tab_tabs_content tab_tabs_content : list) {
         				//得到图片
-        				List<Tab_images> images_list=iimagesMapper.getWhereLbtAttributeId(tab_tabs_content.getId());
+        				images_list=iimagesMapper.getWhereLbtAttributeId(tab_tabs_content.getId());
         				for (Tab_images tab_images : images_list) {
         					//验证路径
         					if(tab_images.getImgUrl().indexOf("http") ==-1){

@@ -12,7 +12,7 @@
     <view class="weui-tab" wx:if="{{tab.length != 0}}">
       <!-- 菜单  start -->
       <view class="weui-navbar" style="border-bottom:none;">
-        <block wx:for="{{tabs}}" wx:key="*this">
+        <block wx:for="{{tabs}}" wx:key="{{item}}">
           <view id="{{index}}" 
           class="weui-navbar__item {{tab_index == index ? 'select_text' : ''}}" 
           data-name="{{item}}" bindtap="tabClick_to">
@@ -33,42 +33,48 @@
         <view class='page_ylang'>
 
           <!-- 标签+描述 -->
-          <template is="label_and_description_model1" data="{{lable_list}}" />
+          <template is="label_and_description_model1" data="{{...basicInfo}}" />
           <!-- 标签+描述 end -->
 
           <!-- 信息来源  start -->
-          <template is="infoSources" data="{{user_info}}" />
+          <template is="infoSources" data="{{...basicInfo}}" />
           <!-- 信息来源  end -->
 
           <!-- 导航菜单  start -->
           <view class="weui-tab">
-                <view class="weui-navbar" style='column-count: {{info.length}};'>
+                <view class="weui-navbar">
                   <view id="null" 
                     class="weui-navbar__item {{activeIndex == -1 ? 'select_text' : ''}}" 
                     data-index='{{-1}}'
                     data-name="{{item.tabs_name}}" bindtap="tabClick">
                       选购
                   </view>
-                  <view id="null" class="weui-navbar__item {{activeIndex == -2 ? 'select_text' : ''}}" 
+                  <view id="null" 
+                    class="weui-navbar__item {{activeIndex == -2 ? 'select_text' : ''}}" 
                     data-index='-2'
                     data-name="{{item.tabs_name}}" bindtap="tabClick">
                       基本信息
                   </view>
-                  <view id="{{item.id}}"  wx:for="{{info}}" wx:key="{{item.id}}"
+                  <view id="{{item.id}}"  wx:for="{{basicInfo.tabs_list}}" wx:key="{{item.id}}"
                     class="weui-navbar__item {{activeIndex == index ? 'select_text' : ''}}" 
                     data-index='{{index}}'
                     data-name="{{item.tabs_name}}" bindtap="tabClick">
                       {{item.tabs_name}}
                   </view>
                   <!-- 添加商铺tabs导航菜单 -->
-                  <navigator class="weui-navbar__item"
-                  url="{{navigator.add_tabs}}?shops_id={{basicInfo.id}}" >+</navigator>
+                  <view class="weui-navbar__item"
+                    bindtap='add_tabs' 
+                    data-shopsid='{{basicInfo.id}}' >+</view>
                   <!-- 编辑商铺tabs导航菜单 -->
-                  <navigator wx:if="{{activeIndex>=0}}" class="weui-navbar__item"
-                  url="{{navigator.edit_tabs}}?id={{info[activeIndex].id}}" >edit</navigator>
+                  <view wx:if="{{activeIndex>=0}}" 
+                    class="weui-navbar__item"
+                    bindtap="edit_tabs" 
+                    data-tabsid='{{basicInfo.tabs_list[activeIndex].id}}'>edit</view>
                   <!-- 删除商铺tabs导航菜单 -->
-                  <view wx:if="{{activeIndex>=0}}"  bindtap='bindtapDeleteTabs'
-                  id="{{info[activeIndex].id}}"  class="weui-navbar__item" >-</view>
+                  <view wx:if="{{activeIndex>=0}}"  
+                    bindtap='bindtapDeleteTabs'
+                    data-tabsid="{{basicInfo.tabs_list[activeIndex].id}}"  
+                    class="weui-navbar__item" >-</view>
                 </view>
           </view>
           <!-- 导航菜单  end -->
@@ -110,26 +116,33 @@
           <view class='tabs_content' wx:if="{{activeIndex  == -1}}">
             <!-- 商铺选购分类tabs菜单 start -->
             <view class="nav_left">
-              <block wx:for="{{shopsChooseType_tabs_list}}" wx:key="{{item.id}}">
+              <block wx:for="{{basicInfo.shopsChooseType_tabs_list}}" wx:key="{{item.id}}">
                 <view class="nav_left_items {{activeIndex_to == index ? 'active' : ''}}" 
-                bindtap="switchRightTab"  id="{{item.id}}" data-index="{{index}}">{{item.tabs_name}}</view>
+                bindtap="switchRightTab"  
+                id="{{item.id}}" 
+                data-index="{{index}}">{{item.tabs_name}}</view>
               </block>
               <!-- 添加商铺选购分类tabs菜单 -->
               <navigator class="nav_left_items"
-               url="{{navigator.add_shopsChooseType_tabs}}?shops_id={{basicInfo.id}}" >+</navigator>
+                bindtap='add_shopsChooseType_tabs'
+                data-shopsid='{{basicInfo.id}}' >+</navigator>
                <!-- 编辑商铺选购分类tabs菜单 -->
-              <navigator wx:if="{{activeIndex_to>=0}}" class="nav_left_items"
-               url="{{navigator.edit_shopsChooseType_tabs}}?id={{shopsChooseType_tabs_list[activeIndex_to].id}}" >edit</navigator>
+              <navigator wx:if="{{activeIndex_to>=0}}" 
+                class="nav_left_items" 
+                data-sctt='{{basicInfo.shopsChooseType_tabs_list[activeIndex_to].id}}' 
+                bindtap='edit_shopsChooseType_tabs' >edit</navigator>
                <!-- 删除商铺选购分类tabs菜单 -->
-              <view wx:if="{{activeIndex_to>=0}}"  bindtap='bindtapDeleteShopChooseTypeTabs'
-                id="{{shopsChooseType_tabs_list[activeIndex_to].id}}"  class="nav_left_items" >-</view>
+              <view wx:if="{{activeIndex_to>=0}}"  
+                bindtap='bindtapDeleteShopChooseTypeTabs'
+                data-sctt='{{basicInfo.shopsChooseType_tabs_list[activeIndex_to].id}}' 
+                class="nav_left_items" >-</view>
             </view>
             <!-- 商铺选购分类tabs菜单 end -->
 
             <!-- 商铺商品 start -->
             <view class='nav_right'>
-              <view  class="for_block" wx:if="{{commodity_list.length != 0}}">
-                <block wx:for="{{commodity_list}}" 
+              <view  class="for_block" wx:if="{{basicInfo.commodity_list.length != 0}}">
+                <block wx:for="{{basicInfo.commodity_list}}" 
                 wx:key="{{item.id}}">
                   <view bindtap='commodityBtn' id="{{item.id}}" class="nav_right_items">
                       <view class='nav_right_items_jia'>+</view>
@@ -158,30 +171,34 @@
             <!-- 商铺商品 end -->
 
             <!-- 删除商铺商品  -->
-            <navigator wx:if="{{commodity_id}}" bindtap='delete_commodity' 
+            <view wx:if="{{commodity_id}}" bindtap='delete_commodity' 
               id="{{commodity_id}}" 
-              class='botton_creator jian'>-</navigator>
+              class='botton_creator jian'>-</view>
 
             <!-- 编辑商铺商品  -->
-            <navigator wx:if="{{commodity_id}}"
-             url="{{navigator.commodity_edit}}?id={{commodity_id}}&shops_id={{basicInfo.id}}"
-             class='botton_creator edit'>edit</navigator>
+            <view wx:if="{{commodity_id}}"
+              bindtap='commodity_edit' 
+              id='{{commodity_id}}'
+              data-shopsid='{{basicInfo.id}}'
+              class='botton_creator edit'>edit</view>
 
             <!-- 添加商铺商品  -->
-            <navigator url="{{navigator.add_commodity}}?id={{shopsChooseType_tabs_list[activeIndex_to].id}}&shops_id={{basicInfo.id}}"
-             class='botton_creator to'>+</navigator>
+            <view bindtap='add_commodity' 
+              data-sctt='{{basicInfo.shopsChooseType_tabs_list[activeIndex_to].id}}' 
+              data-shopsid='{{basicInfo.id}}'             
+              class='botton_creator to'>+</view>
           </view>
           <!-- 选购 end  -->
 
           <!-- tabs内容，图片与文字布局  start-->
-          <template is="imageText" data="{{tabs_content,activeIndex}}" />
+          <template is="imageText_model1" data="{{tabs_content,activeIndex}}" />
           <!-- tabs内容，图片与文字布局  end-->
 
           <!-- 评论 start  -->
           <!-- 评价 end -->
 
           <!-- 底部 start -->
-          <template is="bottom_model1" data="{{ax}}" />
+          <template is="bottom_model1" data="{{...basicInfo}}" />
           <!-- 底部 end -->
         </view>
       </view>
@@ -198,11 +215,13 @@
                 <view class='page_Fundraising_image_title'>
                   <view class='page_Fundraising_image_title_title'>
                   上传商铺logo或门面照片<text style='color:red;'>*</text></view>
-                  <navigator wx:if="{{basicInfo.id}}" 
-                    url="{{navigator.add_shops_price}}?shops_id={{basicInfo.id}}" 
+                  <!-- 跳转到设置价格参数页面 -->
+                  <view wx:if="{{basicInfo.id}}" 
+                    bindtap='add_shops_price' 
+                    data-shopsid='{{basicInfo.id}}'
                     class='page_Fundraising_image_title_text'>
                     <text style='color:red;'>设置起送费、平均消费等</text>
-                  </navigator>
+                  </view>
                 </view>
                 <view class="image-iamge">
                   <view class='page_Fundraising_image_text'>上传商铺logo或门面照片
@@ -223,7 +242,8 @@
                               </view>
                             </block>
                           </view>
-                          <view class="weui-uploader__input-box" bindtap="chooseImage_logo">+</view>
+                          <view class="weui-uploader__input-box"
+                           bindtap="chooseImage_logo">+</view>
                   </view>
                   <!-- 选择图片  end -->
                 </view>
@@ -232,15 +252,18 @@
               
               
               <!-- 选择分类菜单   start-->
-              <input hidden='hidden' name="type_menu_id" value='{{basicInfo.type_menu_id}}'></input>
+              <input hidden='hidden' name="type_menu_id" 
+                value='{{basicInfo.type_menu_id}}'></input>
               <view class='page_Fundraising_input'>
                 <view class='page_Fundraising_title_text'>
                   <view class='page_Fundraising_title_text_title'>
                   选择分类菜单<text style='color:red;'>*</text></view>
-                  <navigator
-                    url="/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?id={{basicInfo.type_menu_id}}" 
+                  <!-- 跳转到选择分类菜单页面 -->
+                  <view bindtap='xz_type_menu' 
+                    data-tmid='{{basicInfo.type_menu_id}}'
                     class='page_Fundraising_image_title_text'>
-                  选择>></navigator>
+                    选择>>
+                  </view>
                 </view>
                 <view class='page_Fundraising_input_input'>
                   <input disabled='disabled'  type='text' value='{{basicInfo.type_menu_id}}' 
@@ -316,7 +339,8 @@
                 <view class='page_Fundraising_image_title'>
                   <view class='page_Fundraising_image_title_title'>
                   上传门店内外周边环境照片</view>
-                  <view class='page_Fundraising_image_title_text' bindtap='image_isDisplay'>参考示例</view>
+                  <view class='page_Fundraising_image_title_text' 
+                  bindtap='image_isDisplay'>参考示例</view>
                 </view>
                 <view class="image-iamge">
                   <view class='page_Fundraising_image_text'>上传门店内外周边环境照片
@@ -326,17 +350,20 @@
                           <view class="weui-uploader__files" id="uploaderFiles">
                             <block wx:for="{{basicInfo.images_list}}" wx:key="{{item.id}}">
                               <view wx:if="{{item !=null}}" 
-                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                class="weui-uploader__file" 
+                                bindlongtap="previewImage" id="{{item}}">
                                 <image class="img_tt" 
                                 src="/assets/images/other/delete.png" 
-                                bindtouchend="bindtapImageDelete_images" data-img="{{item.imgUrl}}" />
+                                bindtouchend="bindtapImageDelete_images" 
+                                data-img="{{item.imgUrl}}" />
                                 <image class="weui-uploader__img" 
                                  src="{{getImage}}{{item.imgUrl}}" mode="aspectFill" />
                               </view>
                             </block>
                             <block wx:for="{{arr}}" wx:key="{{item}}">
                               <view wx:if="{{item !=null}}" 
-                              class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">
+                                class="weui-uploader__file" 
+                                bindlongtap="previewImage" id="{{item}}">
                                 <image class="img_tt" 
                                 src="/assets/images/other/delete.png" 
                                 bindtouchend="bindtapImageDelete" data-img="{{item}}" />
@@ -370,21 +397,24 @@
         <view class='tab_content'>            
           <!-- 模块内容 start  -->
           <view class='content_pro' wx:for-item="pro" 
-          wx:for="{{bujusming_list}}" wx:key="{{item}}">
+            wx:for="{{bujusming_list}}" wx:key="{{item}}">
               <!-- 内容标题 -->
               <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
               <!-- 内容content -->
               <view class='pro_content' wx:if="{{pro.content != null}}">
                 <text>{{pro.content}}</text>
                 <!-- 加粗的内容content_Bold -->
-                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+                <span class='content_Bold' 
+                wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
               </view>
               <!-- 内容加粗content_Bold -->
               <view class='pro_content' wx:elif="{{pro.content_Bold != null}}">
-                <span class='content_Bold' wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
+                <span class='content_Bold' 
+                wx:if="{{pro.content_Bold != null}}">{{pro.content_Bold}}</span>
               </view>
               <!-- 图片img -->
-              <image mode="widthFix" wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
+              <image mode="widthFix" 
+              wx:if="{{pro.img !=null}}" class='pro_img' src='{{pro.img}}'></image>
               <!-- 图片说明文字text -->
               <view class='img_text' wx:if="{{pro.text != null}}">{{pro.text}}</view>
           </view>

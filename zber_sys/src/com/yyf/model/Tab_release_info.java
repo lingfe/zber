@@ -49,6 +49,9 @@ public class Tab_release_info {
 		public Tab_user_info user_info;//用户信息
 		public Tab_price price;//价格信息
 		public List<Tab_images> images;//图片信息
+		public List<Tab_tabs> tabs_list;//tabs导航菜单
+		public List<String> lable_list;//标签数组
+		public Tab_user_like user_like;//喜欢信息
 		
 		
 		

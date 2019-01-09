@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yyf.controller.util.SYS_GET;
 import com.yyf.model.JosnModel;
 import com.yyf.model.Tab_shops_commodity;
 import com.yyf.service.IpriceService;
@@ -151,7 +152,7 @@ public class Shops_commodityController {
 	
 	/**
 	 * 
-	 * 根据shopsChooseType_tabs_id得到商品集合
+	 * 根据商铺选购shopsChooseType_tabs_id得到商品集合
 	 * @author lingfe     
 	 * @created 2018年10月9日 下午5:51:20  
 	 * @param shopsChooseType_tabs_id 商品选购tabs分类菜单
@@ -169,6 +170,12 @@ public class Shops_commodityController {
 				List<Tab_shops_commodity> commodity_list=ishops_commodityService.getWhereShopsChooseType_tabs_id(shopsChooseType_tabs_id);			
 				for (int j = 0; j < commodity_list.size(); j++) {
 					Tab_shops_commodity commodity=commodity_list.get(j);
+					//验证图片路径
+					if(commodity.getImg().indexOf("http") ==-1){
+    					String img= SYS_GET.GET_IMG_PATH_URL + commodity.getImg();
+    					commodity.setImg(img);
+    				}
+					
 					//得到该商品的价格参数
 					commodity.price=ipriceService.getWhwereSetId(commodity.getId());
 					//根据商品id得到该项目喜欢的人数
@@ -184,6 +191,7 @@ public class Shops_commodityController {
 				josn.data=commodity_list;
 				josn.msg="获取成功！";
 				josn.state=200;
+				
 			} catch (Exception e) {
 				josn.state=500;
 				josn.msg=e.getMessage();

@@ -23,27 +23,27 @@
       <!-- 轮播图 end -->
 
       <!-- 标题 -->
-      <view class='model_title'>{{releaseInfo.tab_release_info.title}}</view>
+      <view class='model_title'>{{releaseInfo.title}}</view>
 
       <!-- 标签+描述 -->
-      <template is="label_and_description" data="{{lable_list,...releaseInfo}}" />
+      <template is="label_and_description" data="{{...releaseInfo}}" />
       <!-- 标签+描述 end -->
   </view>
   <!-- 参数 end -->
 
   <!-- 信息来源  start -->
-  <template is="infoSources" data="{{...releaseInfo,user_follow}}" />
+  <template is="infoSources" data="{{...releaseInfo}}" />
   <!-- 信息来源  end -->
 
   <!-- tab切换  start -->
-  <template is="tabsMenu" data="{{info,activeIndex,sliderLeft,sliderOffset}}" />
+  <template is="tabsMenu" data="{{...releaseInfo,activeIndex}}" />
   <!-- tab切换 end -->
 
   <!-- tabs内容，图片与文字布局  start-->
-  <template is="imageText" data="{{info,activeIndex}}" />
+  <template is="imageText" data="{{...releaseInfo,activeIndex}}" />
   <!-- tabs内容，图片与文字布局  end-->
 
   <!-- 底部 start -->
-  <template is="bottom" data="{{ax}}" />
+  <template is="bottom" data="{{...releaseInfo}}" />
   <!-- 底部 end -->
 </view>

@@ -21,9 +21,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    if (!app.checkInput(options.id)) {
+    if (!app.checkInput(options.sctt)) {
       that.setData({
-        "form.shopsChooseType_tabs_id": options.id,
+        "form.shopsChooseType_tabs_id": options.sctt,
         shops_id:options.shops_id,
       });
     } else {
@@ -73,7 +73,7 @@ Page({
 
           //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
           prevPage.setData({
-            commodity_list: res.data.data
+            'basicInfo.commodity_list': res.data.data
           })
           //返回上一页
           wx.navigateBack();

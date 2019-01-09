@@ -150,16 +150,18 @@ public class TabsController {
 	 */
 	@RequestMapping(value="/deleteWhereId",method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody 
-	JosnModel<String> deleteWhereId(@RequestParam(value="id",required=false)String id){
+	JosnModel<Object> deleteWhereId(@RequestParam(value="id",required=false)String id){
 		//实例化 对象
-		JosnModel<String> josn=new JosnModel<String>();
+		JosnModel<Object> josn=new JosnModel<Object>();
 		if(!StringUtils.isEmpty(id)){
+			Tab_tabs info=itabsService.getWhereId(id);
 			//执行删除
 			int tt =itabsService.deleteWhereId(id);
 			if(tt>=1){
 				josn.state=200;
 				josn.msg="删除成功!";
-				josn.data=id;
+				//根据商铺id得到tabs导航菜单
+				josn.data=itabsService.getWhere_project_id(info.getProject_id());
 			}else{
 				josn.msg="删除失败!";
 			}

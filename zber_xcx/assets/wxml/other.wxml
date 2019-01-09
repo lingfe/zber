@@ -87,6 +87,19 @@
               <!-- 选择图片  start -->
               <view class="weui-uploader__bd">
                       <view class="weui-uploader__files" id="uploaderFiles">
+                        <block wx:if="{{images_list !==null}}"
+                          wx:for="{{images_list}}" wx:key="{{item.id}}">
+                              <view wx:if="{{item !=null}}" 
+                                class="weui-uploader__file" 
+                                bindlongtap="previewImage" id="{{item}}">
+                                <image class="img_tt" 
+                                src="/assets/images/other/delete.png" 
+                                bindtouchend="bindtapImageDelete_images" 
+                                data-img="{{item.imgUrl}}" />
+                                <image class="weui-uploader__img" 
+                                 src="{{item.imgUrl}}" mode="aspectFill" />
+                              </view>
+                        </block>
                         <block wx:for="{{arr}}" wx:key="{{item}}">
                           <view wx:if="{{item !=null}}" 
                           class="weui-uploader__file" bindlongtap="previewImage" id="{{item}}">

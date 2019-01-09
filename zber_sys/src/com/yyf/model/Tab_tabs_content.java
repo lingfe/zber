@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * 
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
   * 修改时间：2018年11月17日 下午4:01:45
   * 修改内容：
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Tab_tabs_content {
 	
 	private String id;//	  `id` VARCHAR(64) NOT NULL COMMENT 'tabs菜单导航的内容表id标识',

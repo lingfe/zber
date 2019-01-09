@@ -105,6 +105,6 @@
   <!-- 评价 end -->
 
   <!-- 底部 start -->
-  <template is="bottom_model1" data="{{ax}}" />
+  <template is="bottom_model1" data="{{...basicInfo}}" />
   <!-- 底部 end -->
 </view>

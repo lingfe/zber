@@ -19,9 +19,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    if (!app.checkInput(options.id)) {
+    if (!app.checkInput(options.sctt)) {
       that.setData({
-        "form.id": options.id,
+        "form.id": options.sctt,
       });
     } else {
       app.showModal("请先选择一个选购tabs菜单再编辑!");
@@ -60,7 +60,7 @@ Page({
 
           //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
           prevPage.setData({
-            shopsChooseType_tabs_list: res.data.data
+            'basicInfo.shopsChooseType_tabs_list': res.data.data
           })
           //返回上一页
           wx.navigateBack();

@@ -145,53 +145,36 @@ public class User_followController {
 			if(!StringUtils.isEmpty(tab.getCreator())){
 				//得到
 				Tab_user_follow user_follow=iuser_followService.getWhereUserID(tab.getUser_id(), tab.getCreator());
-				if("get".equals(tab.getModify())){
-					josn.msg="获取成功";
-					josn.state=200;
-					tab.setModify("admin");
-					josn.data=user_follow == null?tab:user_follow;
+				//如果不为空,则执行修改
+				if(!StringUtils.isEmpty(user_follow.getId())){
+					//修改参数
+					user_follow.setVersion(String.valueOf(Integer.parseInt(user_follow.getVersion())+1));
+					user_follow.setMdate(tab.getMdate());
+					user_follow.setModify(tab.getCreator());
+					user_follow.setState(tab.getState());
 					
-					return josn;
-				}
-				//如果id不为空,则执行修改
-				if(!StringUtils.isEmpty(tab.getId())&&!"null".equals(tab.getId())){
-					if(!StringUtils.isEmpty(user_follow)){
-						//修改参数
-						user_follow.setVersion(String.valueOf(Integer.parseInt(user_follow.getVersion())+1));
-						user_follow.setMdate(tab.getMdate());
-						user_follow.setModify(tab.getCreator());
-						user_follow.setState(tab.getState());
-						
-						//执行修改
-						int tt=iuser_followService.update(user_follow);
-						if(tt>=1){
-							josn.msg="修改成功!";
-							josn.state=200;
-							josn.data=user_follow;
-						}else{
-							josn.msg="修改失败";
-						}
+					//执行修改
+					int tt=iuser_followService.update(user_follow);
+					if(tt>=1){
+						josn.msg="修改成功!";
+						josn.state=200;
+						josn.data=user_follow;
 					}else{
-						josn.msg="参数错误!请检查";
+						josn.msg="修改失败";
 					}
 				}else{
-					//验证查询是否已经关注
-					if(StringUtils.isEmpty(user_follow)){
-						//id为空，保存一条
-						//赋值
-						tab.setId(UUID.randomUUID().toString().replace("-", ""));
-						
-						//执行保存
-						int tt=iuser_followService.save(tab);
-						if(tt>=1){
-							josn.msg="保存成功!";
-							josn.state=200;
-							josn.data=tab;
-						}else{
-							josn.msg="保存失败";
-						}
+					//id为空，保存一条
+					//赋值
+					tab.setId(UUID.randomUUID().toString().replace("-", ""));
+					
+					//执行保存
+					int tt=iuser_followService.save(tab);
+					if(tt>=1){
+						josn.msg="保存成功!";
+						josn.state=200;
+						josn.data=tab;
 					}else{
-						josn.msg="请刷新!";
+						josn.msg="保存失败";
 					}
 				}
 			}else{

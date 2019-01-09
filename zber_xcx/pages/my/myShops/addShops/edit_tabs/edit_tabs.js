@@ -19,9 +19,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    if (!app.checkInput(options.id)) {
+    if (!app.checkInput(options.tabs_id)) {
       that.setData({
-        "form.id": options.id,
+        "form.id": options.tabs_id,
       });
     } else {
       app.showModal("请先选择一个tabs导航菜单再编辑!");
@@ -60,7 +60,8 @@ Page({
 
           //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
           prevPage.setData({
-            info: res.data.data
+            'basicInfo.tabs_list': res.data.data,
+            'releaseInfo.tabs_list':res.data.data
           })
           //返回上一页
           wx.navigateBack();
