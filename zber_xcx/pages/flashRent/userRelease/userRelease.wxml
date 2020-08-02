@@ -85,15 +85,17 @@
                             <block wx:for="{{form.images}}" wx:key="{{item.id}}">
                               <view wx:if="{{item !=null}}" 
                                 class="weui-uploader__file" 
-                                bindlongtap="previewImage" id="{{item}}">
+                                bindlongtap="previewImage" id="{{item.id}}">
                                 <image class="img_tt" 
                                   src="/assets/images/other/delete.png" 
+                                  id='{{item.id}}'
                                   bindtouchend="bindtapImageDelete_images" 
                                   data-img="{{item.imgUrl}}" />
                                 <image class="weui-uploader__img" 
                                  src="{{item.imgUrl}}" mode="aspectFill" />
                               </view>
                             </block>
+
                             <block wx:for="{{arr}}" wx:key="{{item}}">
                               <view wx:if="{{item !=null}}" 
                                 class="weui-uploader__file" 
@@ -114,25 +116,26 @@
           </view>
           <!-- 上传轮播图   end-->
 
-              <!-- 选择分类菜单   start-->
-              <input hidden='hidden' name="typeMenu_id" value='{{form.typeMenu_id}}'></input>
-              <view class='page_Fundraising_input'>
+          <!-- 选择分类菜单   start-->
+          <view class='page_Fundraising_input'>
                 <view class='page_Fundraising_title_text'>
                   <view class='page_Fundraising_title_text_title'>
                   选择分类菜单<text style='color:red;'>*</text></view>
                   <!-- 跳转到选择分类菜单页面 -->
                   <view bindtap='xz_type_menu' 
-                    data-tmid='{{form.typeMenu_id}}'
+                    id='{{form.typeMenu_id}}'
                     class='page_Fundraising_image_title_text'>
                     选择>>
                   </view>
                 </view>
                 <view class='page_Fundraising_input_input'>
-                  <input disabled='disabled'  type='text' value='{{form.typeMenu_id}}' 
-                  placeholder='请选择分类菜单'></input>
+                  <input hidden='hidden' name="typeMenu_id"  value='{{form.typeMenu_id}}' />
+                  <input disabled='disabled'  type='text' 
+                    value='{{form.typeMenu_name}}({{form.typeMenu_id}})' 
+                    placeholder='请选择分类菜单' />
                 </view>
-              </view>
-              <!-- 选择分类菜单   end-->
+          </view>
+          <!-- 选择分类菜单   end-->
 
           <!-- 标题   start-->
           <view class='page_Fundraising_input'>
@@ -148,11 +151,30 @@
           </view>
           <!-- 标题   end-->
 
+          <!-- 选择布局模板 start-->
+          <view class='page_Fundraising_input'>
+            <view class='page_Fundraising_title_text'>
+              <view class='page_Fundraising_title_text_title'>
+              选择布局模板</view>
+              <!-- 跳转到选择分类菜单页面 -->
+              <navigator url="/pages/zber/layoutModel/layoutModel?model={{from.model}}" 
+                id='{{form.typeMenu_id}}'
+                class='page_Fundraising_image_title_text'>
+                  选择>>
+              </navigator>
+            </view>
+            <view class='page_Fundraising_input_input'>
+              <input hidden='hidden' name="model"  value='{{form.model}}' />
+              <input disabled='disabled' placeholder='已选择(模板{{form.model}})'></input>
+            </view>
+          </view>
+          <!-- 选择布局模板 end -->
+
           <!-- 标签   start-->
           <view class='page_Fundraising_input'>
             <view class='page_Fundraising_title_text'>
               <view class='page_Fundraising_title_text_title'>
-              标签<text style='color:red;'>*</text> </view>
+              标签</view>
             </view>
             <view class='page_Fundraising_input_input'>
               <input type='text' 

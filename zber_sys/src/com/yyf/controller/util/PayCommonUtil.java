@@ -19,7 +19,6 @@ public class PayCommonUtil {
 		try {
 			m = XMLUtil.doXMLParse(rxml);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 过滤空 设置 SortedMap

@@ -8,6 +8,13 @@ Page({
   data: {
   },
 
+  //跳转到详情
+  navigator_url(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url,
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

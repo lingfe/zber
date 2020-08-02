@@ -22,10 +22,11 @@
 
 <!-- 1.(官方闪租) start -->
 <template name="model1">
-  <navigator url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}" 
-   class="model1"  >
-            <!-- 基本说明信息 start -->
-            <view class="model1_hot-item-top">
+  <view data-url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}" 
+    bindtap='navigator_url'
+    class="model1"  >
+    <!-- 基本说明信息 start -->
+    <view class="model1_hot-item-top">
                 <!-- 图片 start -->
                 <view class="model1_hot-img">
                     <image src="{{item.images[0].imgUrl}}"></image>
@@ -48,16 +49,17 @@
                     </view>
                 </view>
                 <!-- 参数 end -->
-            </view>
-            <!-- 基本说明信息 end -->
-        </navigator>
+    </view>
+    <!-- 基本说明信息 end -->
+  </view>
 </template>
 <!-- (官方闪租) end -->
 
 <!-- 2.(新鲜野货) start -->
 <template name="model2">
-  <navigator url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}" 
-  class='model2'>
+  <view data-url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}" 
+    bindtap='navigator_url'
+    class='model2'>
             <view class='model2_content'>
               <view class='model2_content_left'>
                 <image wx:if="{{item.images[0].imgUrl}}" 
@@ -70,12 +72,11 @@
                 </view>
                 <view class='model2_content_right_text'>
                   <view class='model2_content_right_text_text'>
-                    金额:<span class="model2_text-danger">
-                    {{item.price.present_price}}</span>元/{{item.price.price_company}}
+                    <span class="model2_text-danger">{{item.price.present_price}}</span>元
+                    /{{item.price.price_company}}
                   </view>
                   <view class='model2_content_right_text_text'>
-                    已出售：<span class="model2_text-danger">
-                    {{item.sell_num}}</span>份
+                    销量<span class="model2_text-danger">{{item.sell_num}}</span>份
                   </view>
                   <view class='model2_content_right_text_text model2_no-right'>
                     <span class="model2_text-danger">{{item.share_num}}</span>次转发
@@ -93,14 +94,17 @@
                 {{item.like_num}}</span> 人喜欢
               </view>
             </view>
-        </navigator>
+  </view>
 </template>
 <!-- (新鲜野货) end -->
 
 <!-- 3.(生活预约) start -->
 <template name="model3">
-        <navigator  class='model3'  url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}">
-          <view  class='model{{item.model}}_navigator' bindtap='bindtapNavigator' id='{{item.id}}' data-releasetype='{{item.releaseType}}'>
+  <view class='model3' data-url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}"
+    bindtap='navigator_url'
+    class='model3'>
+          <view  class='model{{item.model}}_navigator' 
+            bindtap='bindtapNavigator' id='{{item.id}}' data-releasetype='{{item.releaseType}}'>
           <view class='model{{item.model}}_model_img'>
             <image class='model{{item.model}}_img' src='{{item.images[0].imgUrl}}'></image>
           </view>
@@ -112,16 +116,14 @@
             人均 {{item.price.per_capita_price}}￥
             </view>
             <view class="model{{item.model}}_data_biaoqian_view">
-            <image src="/assets/images/type.png"></image>
-            {{item.user_info.mobile}}
+              {{item.user_info.mobile}}
             </view>
             <view class="model{{item.model}}_data_biaoqian_view">
-            <image src="/assets/images/hanye.png"></image>
-            {{item.mdate}}
+              {{item.mdate}}
             </view>
           </view>
           </view>
-        </navigator>
+  </view>
 </template>
 <!-- (生活预约) end -->
 
@@ -183,7 +185,8 @@
 
 <!-- 5.(特殊宠物) start -->
 <template name="model5">
-  <navigator 
+  <view 
+    bindtap='navigator_url'
     url="/pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail?id={{item.id}}" class="model5" >
     <view class="model5_image">
       <image wx:for="{{item.images}}" wx:key="{{item.id}}" src='{{item.imgUrl}}'></image>
@@ -218,8 +221,8 @@
           </view>
       </view>
     </view>
-    <!-- 信息来源 end -->
-  </navigator>
+  <!-- 信息来源 end -->
+  </view>
 </template>
 <!-- (特殊宠物) end -->
 

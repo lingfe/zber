@@ -49,7 +49,7 @@
 </template>
 <!-- tabs内容，图片与文字布局  end-->
 
-<!-- tabs导航菜单内容，model1内容编辑时 start -->
+<!-- tabs导航菜单内容，个人发布项目内容编辑时 start -->
 <template name='imageText_model1'>
   <!-- 编辑点击时显示 -->
   <view wx:if="{{tabs_content.length != 0}}" class="weui-tab__content" >
@@ -57,19 +57,6 @@
           <!-- 模块内容 start  -->
           <view class='content_pro' wx:for-item="pro" 
             wx:for="{{tabs_content}}" wx:key="{{pro.id}}">
-              <!-- 操作 start -->
-              <view class='operation'>
-                <!-- 编辑 -->
-                <view bindtap='updateTabaContent' id='{{pro.id}}'
-                  class='operation_view'>编辑</view>
-                <!-- 删除 -->
-                <view bindtap='deleteTabaContent' id='{{pro.id}}' 
-                  class='operation_view'>删除</view>
-                <!-- 下架 -->
-                <view  class='operation_view'>...</view>
-              </view>
-              <!-- 操作 end -->
-
               <!-- 内容标题 -->
               <view class='pro_title' wx:if="{{pro.title}}">{{pro.title}}</view>
 
@@ -95,6 +82,19 @@
                 <view class='img_text' wx:if="{{pro.img_txt}}">{{pro.img_txt}}</view>
               </view>
               <!-- 内容content  end -->
+
+              <!-- 操作 start -->
+              <view class='operation'>
+                <!-- 编辑 -->
+                <view bindtap='updateTabaContent' id='{{pro.id}}'
+                  class='operation_view'>编辑</view>
+                <!-- 删除 -->
+                <view bindtap='deleteTabaContent' id='{{pro.id}}' 
+                  class='operation_view'>删除</view>
+                <!-- ... -->
+                <view  class='operation_view'>...</view>
+              </view>
+              <!-- 操作 end -->
           </view>
           <!-- 模块内容 end  -->
         </view>
@@ -102,4 +102,4 @@
   <!-- 跳转到添加tabs导航菜单内容页面 -->
   <view wx:if="{{activeIndex>=0}}" bindtap='add_tabs_content' class='botton_creator to'>+</view>
 </template>
-<!-- tabs导航菜单内容，model1内容编辑时 end -->
+<!-- tabs导航菜单内容，个人发布项目内容编辑时 end -->

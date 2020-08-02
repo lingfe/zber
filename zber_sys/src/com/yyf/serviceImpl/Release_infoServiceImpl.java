@@ -56,4 +56,14 @@ public class Release_infoServiceImpl implements Irelease_infoService {
 		return irelease_infoMapper.update(tab);
 	}
 
+	@Override
+	public int deleteWhereId(String id) {
+		return irelease_infoMapper.deleteWhereId(id);
+	}
+
+	@Override
+	public int updateWhereId_state(String id, int state) {
+		return irelease_infoMapper.updateWhereId_state(id, state);
+	}
+
 }

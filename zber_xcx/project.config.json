@@ -8,13 +8,26 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.98",
 	"appid": "wx2c5b4fc4466c3e4e",
 	"projectname": "%E8%B4%B5%E5%B7%9E%E5%91%A8%E8%BE%B9%E5%84%BF%E4%BA%92%E8%81%94%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%B9%B3%E5%8F%B0%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -33,7 +46,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 21,
+			"current": 22,
 			"list": [
 				{
 					"id": 0,
@@ -164,7 +177,13 @@
 				{
 					"id": -1,
 					"name": "我的发布",
-					"pathName": "pages/my/myReleaseInfo/myReleaseInfo"
+					"pathName": "pages/my/myReleaseInfo/myReleaseInfo",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "布局模型",
+					"pathName": "pages/zber/layoutModel/layoutModel"
 				}
 			]
 		}

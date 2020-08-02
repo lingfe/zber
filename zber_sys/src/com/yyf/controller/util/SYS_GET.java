@@ -10,13 +10,19 @@ package com.yyf.controller.util;
  */
 public  class SYS_GET {
 	
-	/**
-	 * get或set图片路径 server(服务器）
-	 */
-	//public static String  GET_IMG_PATH_URL="https://lingfe.club/zber_sys/";
 	
 	/**
-	 * get或set图片路径 localhost(本地路径）
+	 * 访问文件，路径地址，
+	 * 集合nginx代理，代理转发到资源文件夹
 	 */
-	public static String  GET_IMG_PATH_URL="http://localhost:8080/zber_sys/";
+	//public static String  GET_IMG_PATH_URL="https://lingfe.club/zber_sys/";//service
+	public static String GET_IMG_PATH_URL="http://localhost/uploadFiles/";//localhost
+			
+	/**
+	 * 上传文件,路径地址
+	 */
+	//service
+	//public static String  GET_IMG_PATH_URL="https://lingfe.club/zber_sys/";
+	//localhost
+	public static String SET_IMG_PATH_URL="C:\\AworkingSpace\\git\\zber\\zber_web\\uploadFiles\\";
 }

@@ -27,12 +27,13 @@ Page({
   xzTypeMenu:function(e){
     var that=this;
     var id = e.currentTarget.id;
+    var name=e.currentTarget.dataset.name;
     //get分类菜单
-    that.getWhereSuperiorId(id);
+    that.getWhereSuperiorId(id,name);
   },
 
   //get分类菜单
-  getWhereSuperiorId: function (superiorId) {
+  getWhereSuperiorId: function (superiorId,name) {
     var that=this;
     wx.request({
       url: app.config.zberPath_web + 'zber_sys/type_menu/getWhereSuperiorId',
@@ -65,6 +66,8 @@ Page({
               //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
               prevPage.setData({
                 "basicInfo.type_menu_id": superiorId,
+                "form.typeMenu_id":superiorId,
+                "form.typeMenu_name": name,
                 type_menu_id: superiorId
               });
               //返回上一页

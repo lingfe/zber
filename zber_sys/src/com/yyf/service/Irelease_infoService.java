@@ -4,9 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.yyf.inter.Irecommend;
+import com.yyf.inter.Irelease_info;
 import com.yyf.model.Tab_release_info;
 
-public interface Irelease_infoService extends Irecommend<Tab_release_info> {
+public interface Irelease_infoService extends Irecommend<Tab_release_info>,Irelease_info {
+	
+	@Override
+	int updateWhereId_state(String id, int state);
+	
+	@Override
+	int deleteWhereId(String id);
 	
 	int update(Tab_release_info tab);
 	

@@ -44,7 +44,6 @@
     display: block;
     width: 100%;
     height: 40rpx;
-    margin: -4rpx 0 30rpx 0;
     line-height: 40rpx;
     font-size: 32rpx;
     color: #444;
@@ -58,9 +57,9 @@
     font-size: 28rpx;
     color: #fb5d5d;
     overflow:hidden;
-text-overflow:ellipsis;
-/* white-space:nowrap; */
- height: 100rpx;
+    text-overflow:ellipsis;
+    /* white-space:nowrap; */
+    height: 120rpx;
 }
 
 .model1_hot-item-No-time-box {

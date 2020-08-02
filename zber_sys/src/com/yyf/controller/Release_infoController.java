@@ -21,7 +21,6 @@ import com.yyf.mapper.IimagesMapper;
 import com.yyf.mapper.IuserinfoMapper;
 import com.yyf.model.JosnModel;
 import com.yyf.model.Tab_images;
-import com.yyf.model.Tab_lbt_attribute;
 import com.yyf.model.Tab_price;
 import com.yyf.model.Tab_release_info;
 import com.yyf.model.Tab_tabs;
@@ -29,7 +28,6 @@ import com.yyf.model.Tab_tabs_content;
 import com.yyf.model.Tab_user_browse;
 import com.yyf.model.Tab_user_follow;
 import com.yyf.model.Tab_user_info;
-import com.yyf.service.Ilbt_attributeService;
 import com.yyf.service.IpriceService;
 import com.yyf.service.Irelease_infoService;
 import com.yyf.service.ItabsService;
@@ -75,14 +73,77 @@ public class Release_infoController {
 	@Autowired
 	private Iuser_browseService iuser_browseService;
 	
-	@Autowired 
-	private Ilbt_attributeService ilbt_attributeService;
-	
 	@Autowired
 	private Iuser_followService iuser_followService;
 	
 	@Autowired
 	private Itabs_contentService itabs_contentService;
+	
+	/**
+	 * 
+	 * 根据项目id修改状态
+	 * @author lingfe     
+	 * @created 2019年3月31日 下午10:43:09  
+	 * @param openid
+	 * @param state
+	 * @return
+	 */
+	@RequestMapping(value="/updateWhereOpenid_state",method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public JosnModel<Object> updateWhereOpenid_state(
+			@RequestParam(value="id",required=false)String id,
+			@RequestParam(value="state",required=false)Integer state){
+		//实例化对象
+		JosnModel<Object> josn=new JosnModel<Object>();
+		//验证非空
+		if(id!=null&&!"".equals(id)){
+			if(state!=null){
+				//执行修改
+				int tt=irelease_infoService.updateWhereId_state(id, state);
+				if(tt>=1){
+					josn.msg="修改成功!";
+					josn.state=200;
+				}else{
+					josn.msg="修改失败!";
+				}
+			}
+		}else{
+			josn.msg="openid不能为空!请登录";
+			josn.state=401;
+		}
+		
+		return josn;
+	}
+
+	/**
+	 * 
+	 * 根据id标识删除发布信息
+	 * @author lingfe     
+	 * @created 2019年3月25日 下午3:18:08  
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/deleteWhereId",method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	JosnModel<Tab_release_info> deleteWhereId(@RequestParam(value="id",required=false)String id){
+		//实例化对象
+		JosnModel<Tab_release_info> josn=new JosnModel<Tab_release_info>();
+		if(!StringUtils.isEmpty(id)){
+			//执行删除
+			int tt=irelease_infoService.deleteWhereId(id);
+			if(tt>=1){
+				josn.state=200;
+				josn.msg="删除成功!";
+			}else{
+				josn.msg="删除失败!";
+			}
+		}else{
+			josn.msg="id不能为空!";
+		}
+		
+		return josn;
+	}
+	
 	
 	/**
 	 * 
@@ -107,9 +168,10 @@ public class Release_infoController {
 					//赋值
 					tab.setMdate(new Date());
 					tab.setModify(tab.getCreator());
-					tab.setCreator(info.getCreator());
-					tab.setModel(tab.getModel());
 					tab.setVersion((Integer.parseInt(info.getVersion())+1)+"");
+					tab.setCdate(info.getCdate());
+					tab.setState(1);
+					
 					
 					//执行修改
 					int tt=irelease_infoService.update(tab);
@@ -200,7 +262,7 @@ public class Release_infoController {
             		//根据项目id得到项目图片数据
             		List<Tab_images> images=iimagesMapper.getWhereLbtAttributeId(tab_release_info.getId());
             		if(!StringUtils.isEmpty(images)){
-            			tab_release_info.images=images;
+            			tab_release_info.images=images;	
             		}
             		
             		//根据项目id得到该项目喜欢的人数
@@ -231,6 +293,7 @@ public class Release_infoController {
 		
 		return josn;
 	}
+	
 	//根据被关注者与关注者得到关注信息
 	Tab_user_follow getUserFollow(String user_id,String openid){
 		if(!StringUtils.isEmpty(user_id)){
@@ -298,33 +361,22 @@ public class Release_infoController {
         		}
         		tab_release_info.user_info=user_info;
         		
-        		//根据项目id得到详情轮播图属性
-    			Tab_lbt_attribute lbt_attribute= ilbt_attributeService.getLbtAttributeInfo(tab_release_info.getId());
-    			if(!StringUtils.isEmpty(lbt_attribute)){
-    				//根据项目id得到项目图片数据
-            		List<Tab_images> images_list=iimagesMapper.getWhereLbtAttributeId(tab_release_info.getId());
-            		if(!StringUtils.isEmpty(images_list)){
-            			lbt_attribute.images_list=images_list;
-            			tab_release_info.images=images_list;
-            			
-            			tab_release_info.lbt_attribute=lbt_attribute;
-            		}
-    			}else{
-    				//根据项目id得到详情轮播图属性,使用默认轮播图属性default_1
-        			lbt_attribute= ilbt_attributeService.getLbtAttributeInfo("default_1");
-        			//根据项目id得到项目图片数据
-            		List<Tab_images> images_list=iimagesMapper.getWhereLbtAttributeId(tab_release_info.getId());
-            		if(images_list.size()<=0){
-            			//根据项目id得到项目图片数据,使用默认图片default_1
-                		images_list=iimagesMapper.getWhereLbtAttributeId("default_1");
-            		}
-            		if(!StringUtils.isEmpty(images_list)){
-            			lbt_attribute.images_list=images_list;
-            			tab_release_info.images=images_list;
-            			tab_release_info.lbt_attribute=lbt_attribute;
-            		}
-    				
-    			}
+        		//根据项目id得到项目图片数据
+        		List<Tab_images> images_list=iimagesMapper.getWhereLbtAttributeId(tab_release_info.getId());
+        		if(!StringUtils.isEmpty(images_list)){
+        			for (int j = 0; j < images_list.size(); j++) {
+    					Tab_images tab_images=images_list.get(j);
+    					//验证图片路径
+    					if(tab_images.getImgUrl().indexOf("http") ==-1){
+        					String img= SYS_GET.GET_IMG_PATH_URL + tab_images.getImgUrl();
+        					tab_images.setImgUrl(img);
+        				}
+    					
+    					//数据更新
+    					images_list.set(j, tab_images);
+    				}
+        		}
+        		tab_release_info.images=images_list;
     			
     			//根据项目id得到该用户是否喜欢该项目
     			tab_release_info.user_like=iproject_like_numService.getWhereOpenid(tab_release_info.getId(), openid);
@@ -337,7 +389,7 @@ public class Release_infoController {
         			List<Tab_tabs_content> list=itabs_contentService.getWhereGetID(tab_tabs.getId());
         			for (Tab_tabs_content tab_tabs_content : list) {
         				//得到图片
-        			    List<Tab_images>	images_list=iimagesMapper.getWhereLbtAttributeId(tab_tabs_content.getId());
+        			    images_list=iimagesMapper.getWhereLbtAttributeId(tab_tabs_content.getId());
         				for (Tab_images tab_images : images_list) {
         					//验证路径
         					if(tab_images.getImgUrl().indexOf("http") ==-1){

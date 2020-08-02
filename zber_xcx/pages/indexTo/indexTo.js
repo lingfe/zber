@@ -77,7 +77,8 @@ Page({
     var that=this;
     //get分类菜单
     that.getWhereSuperiorId(that);
-
+    //get轮播图图片和属性zber_sys/lbt_attribute/getLbtAttributeInfo?state=1
+    that.getLbtAttributeInfo(that);
     //下拉完成后执行回退
     wx.stopPullDownRefresh();
   },

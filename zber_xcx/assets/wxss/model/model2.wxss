@@ -82,7 +82,6 @@
   width: 33%;
   text-align: center;
   float: left;
-  border-right: 1rpx solid;
 }
 .model2_no-right{
   border-right:none;

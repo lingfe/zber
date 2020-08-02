@@ -20,6 +20,9 @@ import com.yyf.model.Tab_images;
  */
 public interface IimagesMapper extends Iimages {
 	
+	@Select("select * from images where id=#{id}")
+	Tab_images getWhereId(@Param("id")String id);
+	
 	@Delete("delete FROM images where id=#{id}")
 	int deleteWhereId(@Param("id")String id);
 

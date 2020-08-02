@@ -9,7 +9,7 @@
       <view class="weui-navbar">
         <view id="{{index}}"  wx:for="{{tabs_list}}" wx:key="{{item}}"
           class="weui-navbar__item {{activeIndex == index ? 'select_text' : ''}}" 
-          data-name="{{item}}" bindtap="tabClick">
+          data-name="{{item}}"  bindtap="tabClick">
             {{item}}
         </view>
       </view>
@@ -19,27 +19,37 @@
   
   <!-- 内容 model  start -->
   <view class='page_model'>
-    <view wx:for="{{lists}}" catchtap='modelOperation'  wx:key="{{item.model}}">
+    <view wx:for="{{lists}}" 
+      wx:if="{{(activeIndex-1)==-1||item.state==activeIndex-1}}" 
+      catchtap='modelOperation'  wx:key="{{item.model}}">
       <!-- 项目状态 start -->
-      <view class='xiangmu_state'>
-        <view wx:if="{{item.state == 0}}">显示中</view>
-      </view>
+      <view class='xiangmu_state'>{{tabs_list[item.state+1]}}</view>
       <!-- 项目状态 start -->
 
       <!-- model -->
       <template is="model{{item.model}}" data="{{item,index}}" />
 
       <!-- 操作 start -->
-      <view class='operation'>
+      <view class='operation' wx:if="{{activeIndex!=0}}">
         <!-- 编辑 -->
-        <navigator url='/pages/flashRent/userRelease/userRelease?id={{item.id}}' 
+        <navigator wx:if="{{item.state!=0}}" 
+          url='/pages/flashRent/userRelease/userRelease?id={{item.id}}' 
           class='operation_view'>编辑</navigator>
         <!-- 删除 -->
-        <navigator url='/pages/flashRent/userRelease/userRelease?id={{item.id}}' 
-          class='operation_view'>删除</navigator>
+        <view id='{{item.id}}'wx:if="{{item.state!=0}}"  bindtap='deleteWhereId'
+          class='operation_view'>删除</view>
         <!-- 下架 -->
-        <navigator url='/pages/flashRent/userRelease/userRelease?id={{item.id}}' 
-          class='operation_view'>下架</navigator>
+        <view wx:if="{{item.state == 0}}" 
+          data-state='1'
+          id='{{item.id}}'
+          bindtap='updateWhereId_state'
+          class='operation_view'>下架</view>
+        <!-- 上架 -->
+        <view wx:if="{{item.state == 1}}" 
+          data-state='0'
+          id='{{item.id}}'
+          bindtap='updateWhereId_state'
+          class='operation_view'>上架</view>
       </view>
       <!-- 操作 end -->
     </view>

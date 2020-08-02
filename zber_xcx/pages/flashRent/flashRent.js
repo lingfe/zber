@@ -39,10 +39,17 @@ Page({
     that.getWhereSuperiorId(that);
   },
 
+  //跳转到详情
+  navigator_url(e){
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url,
+    })
+  },
+
   //跳转到个人资源信息发布页面
   bindtapFabu:function(e){
     wx.navigateTo({
-      url: '/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?type=release_info',
+      url: '/pages/flashRent/userRelease/userRelease',
     });
     app.showToast("正在努力开发中!..", "none");
   },

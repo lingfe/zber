@@ -3,7 +3,8 @@
 <view class="page">
   <!-- 分类菜单 start -->
   <view class='find_menu'>
-    <view bindtap='xzTypeMenu' id="{{item.id}}"
+    <view bindtap='xzTypeMenu' id="{{item.id}}" 
+    data-name='{{item.typeMenuName}}'
     wx:for="{{type_menu}}"  wx:key="{{item.id}}" class='menu'>
        <image class='menu_img' src='{{item.typeMenuIcoUrl}}'></image>
        <view class='menu_text'>{{item.typeMenuName}}</view>

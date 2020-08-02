@@ -39,7 +39,8 @@
     "pages/my/myShops/addShops/xz_type_menu/xz_type_menu",
     "pages/flashRent/userRelease/userRelease",
     "pages/my/myReleaseInfo/myReleaseInfo",
-    "pages/my/myShops/addShops/add_tabs_content/add_tabs_content"
+    "pages/my/myShops/addShops/add_tabs_content/add_tabs_content",
+    "pages/zber/layoutModel/layoutModel"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -81,5 +82,6 @@
     "uploadFile": 60000,
     "downloadFile": 60000
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

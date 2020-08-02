@@ -7,6 +7,136 @@ export default{
     2,//预约。预约剪发
   ],
 
+  //布局模板
+  layoutModel:[
+    {
+      model:0
+    },
+    {
+      model:1,
+      //图片
+      images:[{
+        imgUrl:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1519751787,2797767522&fm=27&gp=0.jpg"
+      }],
+      //标题
+      title:"新货3m钓鱼竿",
+      //价格参数
+      price:{
+        present_price:5,//现价
+        price_company: "天",//价格单位：月,株,盒,斤，人等
+        original_price: 80,//原件
+      }, 
+      //描述
+      describe_info:"全新3m钓鱼竿,鱼饵。租满三个月免费送，全新3m钓鱼竿,鱼饵。租满三个月免费送",
+    },
+    {
+      model:2,
+      //图片
+      images: [{
+        imgUrl: "http://108108byg.com/uploads/allimg/170831/1-1FS1222647.jpg"
+      }],
+      //标题
+      title: "贵州贵阳互联网项目“周边儿”小程序融资3w-300w",
+      //价格参数
+      price:{
+        surplusNum: 68,//剩余数量%
+        present_price: 5,//现价
+        price_company: "天",//价格单位：月,株,盒,斤，人等
+      },
+      //销售量
+      sell_num:12,
+      //转发量
+      share_num:224,
+      //用户信息
+      user_info:{
+        avatar: "http://108108byg.com/uploads/allimg/170831/1-1FS1222647.jpg",//头像
+        username:"零风",//用户名称
+      },
+      //喜欢人数
+      like_num:12
+    },
+    {
+      model: 3,
+      //图片
+      images: [{
+        imgUrl: "https://gss0.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/bainuo/crop%3D0%2C253%2C802%2C485%3Bw%3D720%3Bq%3D99/sign=98f69c2091504fc2b610ea45d8edcb23/e7cd7b899e510fb3b8fc67bfd333c895d1430c34.jpg"
+      }],
+      //标题
+      title: "雾都美容美发店烫染368",
+      //描述
+      describe_info: "仅售368元，价值1888元美发设计师亲自染烫2选1！免费WiFi，需预约！ ",
+      //价格参数
+      price: {
+        per_capita_price: 68,//人均消费
+      },
+      //用户信息
+      user_info:{
+        mobile:"08412342423",//联系电话
+      },
+      //更新时间
+      mdate:"2019-10-12 14:33",
+    },
+    {
+      model:4,
+      //是否可以预约
+      is_subscribe:1,
+      logo:"https://p0.meituan.net/deal/3f47cdea4688224ddc30a1047e87472b93015.jpg",//商铺logo
+      shopsName:"A谯家大头炮特色烤鱼",//商户名称
+      //价格参数
+      price: {
+        per_capita_price:45,//人均价
+        charging_fee:30,//起送价
+        distribution_fee:4,//配送费
+      },
+      //商品信息
+      commodity_list:[{
+        id:"",//商品id
+        //商品图片
+        img:"https://p0.meituan.net/shaitu/59178c00c2bea2254344374ce67447512265801.jpg@55w_55h_1e_1c",
+        commodityName:"烤鱼江团一条3斤左右",//商品名称
+        share_num:33,//转发量
+        like_num:44,//喜欢人数
+        //价格参数
+        price:{
+          present_price:88//价格
+        }
+      }],
+      //用户信息
+      user_info:{
+        is_follow:1,
+        //用户关注信息
+        user_follow:{
+          state:1//是否关注
+        }
+      }
+    },
+    {
+      model:5,
+      //图片
+      images:[{
+        imgUrl:"http://www.qnong.com.cn/uploadfile/2018/0910/20180910111719388.jpg",
+      }, 
+      {
+          imgUrl: "http://www.qnong.com.cn/uploadfile/2018/0910/20180910111719388.jpg",
+        }, {
+          imgUrl: "http://www.qnong.com.cn/uploadfile/2018/0910/20180910111719388.jpg",
+        }],
+      //标题
+      title:"",
+      //用户信息
+      user_info:{
+        avatar: "http://f.hiphotos.baidu.com/baike/s%3D220/sign=9467fc4add54564ee165e33b83df9cde/d53f8794a4c27d1e0f28fb9d1bd5ad6eddc43859.jpg",//头像
+        username: "土元养殖场",//用户名称
+        is_authentication:1,//是否实名
+        //用户关注信息
+        is_follow:1,
+        user_follow: {
+          state: 1//是否关注
+        }
+      }
+    }
+  ],
+
   //布局说明
   bujusming_list: [{
     "title": "title表示标题,这是标题部分",

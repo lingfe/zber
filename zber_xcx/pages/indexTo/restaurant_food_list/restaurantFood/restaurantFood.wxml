@@ -98,7 +98,7 @@
           <!-- 选购 end  -->
 
   <!-- tabs内容，图片与文字布局  start-->
-  <template is="imageText" data="{{...basicInfo,activeIndex}}" />
+  <template wx:if="{{activeIndex>=0}}" is="imageText" data="{{...basicInfo,activeIndex}}" />
   <!-- tabs内容，图片与文字布局  end-->
 
   <!-- 评论 start  -->

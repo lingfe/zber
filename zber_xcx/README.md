@@ -1,8 +1,8 @@
-# 微信小程序－生鲜商城
+# 微信小程序
 
 ### 说明：
 
-实现了生鲜商城轮播，分类，推荐等页面，另外还展示了微信官方UI框架（weui.io）效果。
+
 
 ### 数据接口:
 
@@ -10,9 +10,26 @@
 
 ### 目录结构：
 - assets - 存放项目的所有资源文件，包括:图片，wxss，本地数据
-- pages — 存放项目页面相关页面文件，包括index,my,logs等页面
-- style — 存放公共样式
+  - images - 图片文件
+    - ico - 图标
+    - my - 我的页面相关图片
+    - other - 其他图片文件
+  - localData - 本地数据
+  - wxml - 页面公共标签
+  - wxss - 页面公共样式
+    - model - 样式模板
+
 - config — 存放配置文件
+- pages — 存放项目页面相关页面文件，包括index,my,logs等页面
+  - bindingPhone - 绑定电话号码页面
+  - component - 组件页面
+  - detailed - 会议室详情页面
+  - flashRent - 推荐页面
+    - flashRentDetailed - 拼团
+      - detail - 详情
+    - publicDetail - 众筹详情
+    - userRelease - 用户发布页面
+- style — 存放公共样式
 - utils — 存放工具文件，比如：得到当前日期，弹窗；md5加密文件，表单验证文件
 
 ### 开发环境：

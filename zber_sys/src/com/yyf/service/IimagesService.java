@@ -8,6 +8,9 @@ import com.yyf.model.Tab_images;
 public interface IimagesService extends Iimages {
 	
 	@Override
+	Tab_images getWhereId(String id);
+	
+	@Override
 	int deleteWhereId(String id);
  
 	@Override

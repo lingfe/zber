@@ -1,0 +1,19 @@
+<!--pages/zber/layoutModel/layoutModel.wxml-->
+
+<!-- 导入资源 -->
+<import src="/assets/wxml/model.wxml" />
+
+<view>
+  <!-- 内容 model  start -->
+  <view class='page_model'>
+    <view wx:for="{{layoutModel}}" 
+      id='{{item.model}}'
+      bindtap='layouModel'  wx:key="{{item.model}}">
+      <template is="model{{item.model}}" data="{{item,index}}" />
+    </view>
+    <view class='model'  wx:if="{{lists.length == 0}}">
+      <template is="model"/>
+    </view>
+  </view>
+  <!-- 内容 model  end -->
+</view>

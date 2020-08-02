@@ -6,7 +6,7 @@
 <view class="container">
 
     <!-- 轮播图 -->
-    <template is="lbt" data="{{lbt_attribute}}"/>
+    <template is="lbt" data="{{lbt_attribute,...lbt_attribute}}"/>
     
     <!-- 分类菜单 -->
     <template is="type_menu" data="{{type_menu}}"/>

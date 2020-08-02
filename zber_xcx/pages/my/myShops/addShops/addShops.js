@@ -28,10 +28,6 @@ Page({
       //得到本地数据
       that.setData({
         commodity_list:[],
-        //标签
-        lable_list: shopsDetailsData.basicInfo.lable_list,
-        //表单
-        form: shopsDetailsData.form,
       });
     }
 
@@ -422,6 +418,10 @@ Page({
                 uploadimg(arr.splice(0, 1), [], arr);
               }
             }
+
+            //刷新
+            //根据商铺id得到商铺详情
+            that.getWhereId_detail(that.data.id);
           }
         }
       })
@@ -430,7 +430,7 @@ Page({
     //多张图片上传
     function uploadimg(path, pathArr, dataArr) {
       wx.uploadFile({
-        url: app.config.zber_domain + "zber_sys/images/imageUpload",//上传大病救助图片 开发者服务器 url
+        url: app.config.getImage + "images/imageUpload",//上传大病救助图片 开发者服务器 url
         filePath: path[0]+"",                 //要上传文件资源的路径
         name: 'file',     //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
         header: {                                   //HTTP 请求 Header , header 中不能设置 Referer

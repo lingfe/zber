@@ -91,14 +91,14 @@ Page({
             releaseInfo.user_info.avatar = app.config.getImage + releaseInfo.user_info.avatar;
           }
 
-          var images_list = releaseInfo.lbt_attribute.images_list;
+          var images_list = releaseInfo.images;
           images_list.forEach(function (item) {
             //匹配是否包含http://
             if (item.imgUrl.indexOf("http") == -1) {
               item.imgUrl = app.config.getImage + item.imgUrl;
             }
           });
-          releaseInfo.lbt_attribute.images_list = images_list;
+          releaseInfo.images_list = images_list;
           
           //tabs内容处理
           var info = releaseInfo.tabs_list;

@@ -38,6 +38,9 @@ page{
   border-radius: 16rpx;
   margin-top: 10rpx;
   background-color: #fff;
+  padding-left:20rpx;
+  padding-top:10px;
+  padding-bottom:20rpx;
 }
 textarea{
   width: 90%;
@@ -45,9 +48,6 @@ textarea{
   position: absolute;
   margin-top: 0%;
   font-size: 30rpx;
-  padding-left:20rpx;
-  padding-top: 20rpx; 
-  padding-bottom: 20rpx;
 }
 .page_Fundraising_input_input label{
   height: 80rpx;
@@ -164,12 +164,15 @@ textarea{
 
 /*下一步  start*/
 .page_btn {
-  margin:1.17647059em 15px .3em;
   padding-bottom: 40rpx;
 }
 .page_btn_button {
+  position: fixed;
+  bottom: 20rpx;
+  right: 26%;
   color:#FFFFFF;
   background-color:#0092ff;
   border-radius: 8px;
+  width: 50%;
 }
 /*下一步  end*/

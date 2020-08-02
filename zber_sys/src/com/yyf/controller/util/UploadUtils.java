@@ -1,19 +1,77 @@
 package com.yyf.controller.util;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 public class UploadUtils {
+	
+
+	
+	/**
+	 * 
+	 * 文件上传(单个)
+	 * @author lingfe     
+	 * @created 2019年3月27日 下午3:28:40  
+	 * @param file
+	 * @return
+	 * @throws Exception 
+	 */
+	public static String fileUpLoad(CommonsMultipartFile file, 
+			HttpServletRequest request) throws Exception {
+		// 获取ServletContext的对象 代表当前WEB应用
+		ServletContext servletContext = request.getServletContext();
+		//将当前日期作为目录
+		String dateStr=getYiJieDate();
+		// 得到文件上传目的位置的真实路径
+		String realPath = servletContext.getRealPath("/fileUpload/"+dateStr);
+		System.out.println("realPath :" + realPath);
+		File file1 = new File(realPath);
+		if (!file1.exists()) {
+			// 如果该目录不存在，就创建此抽象路径名指定的目录。
+			file1.mkdir();
+		}
+		String prefix = UUID.randomUUID().toString();
+		prefix = prefix.replace("-", "");
+		// 使用UUID加前缀命名文件，防止名字重复被覆盖
+		String fileName = prefix + "_" + file.getOriginalFilename();
+
+		// 声明输入输出流
+		InputStream in = file.getInputStream();
+
+		// 指定输出流的位置;
+		OutputStream out = new FileOutputStream(new File(realPath + "\\" + fileName));
+
+		// 这段代码也可以用IOUtils.copy(in, out)工具类的copy方法完成
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while ((len = in.read(buffer)) != -1) {
+			out.write(buffer, 0, len);
+			// 类似于文件复制，将文件存储到输入流，再通过输出流写入到上传位置
+			out.flush();
+		}
+		// 关闭流
+		out.close();
+		in.close();
+		
+		return fileName;
+	}
+
 	
 	
 	/**
@@ -49,46 +107,53 @@ public class UploadUtils {
         	// 判断文件类型是否为空
             if ("GIF".equals(type.toUpperCase())
             		||"PNG".equals(type.toUpperCase())
-            		||"JPG".equals(type.toUpperCase())) {
+            		||"JPG".equals(type.toUpperCase())
+            		||"ICO".equals(type.toUpperCase())) {
             	//后缀
             	map.put("suffix", type);
             	
                 // 项目在容器中实际发布运行的根路径,储存路径
-                String realPath=request.getSession().getServletContext().getRealPath("/");
+                //String realPath=request.getSession().getServletContext().getRealPath("/");
+                String realPath=SYS_GET.SET_IMG_PATH_URL;
                 map.put("storage_path", realPath);
                 
                 //存放与访问目录
-            	String set_get="fileUpload\\images\\";
-            	String set_get_to="fileUpload/images/";
+            	String set_get="images\\";
                 
                 // 自定义的文件名称
                 String uuid=UUID.randomUUID().toString().replace("-", "");//uuid
                 map.put("custom_name", uuid);
                 String trueFileName=uuid+"."+type;
-                String trueFileName_to=trueFileName;
+                //将当前日期作为目录
+            	String dateStr=getYiJieDate();
+            	
+            	//验证文件夹是否为空
                 if(!StringUtils.isEmpty(folder)){
-                	trueFileName=set_get+folder+"\\"+trueFileName;
-                	trueFileName_to=set_get_to+folder+"/"+trueFileName_to;
+                	//路径拼接
+                	trueFileName=set_get+folder+"\\"+dateStr+"\\"+trueFileName;
                 }else{
-                	trueFileName=set_get+"\\"+trueFileName;
-                	trueFileName_to=set_get_to+"/"+trueFileName_to;
+                	trueFileName=set_get+dateStr+"\\"+trueFileName;
                 }
                 
-                // 图片访问浏览路径
-                map.put("imgUrl", trueFileName_to);
-                
                 // 设置存放图片文件的路径,图片完整路径，全路径
-                path=realPath+trueFileName_to;
+                path=realPath+trueFileName;
+                //是否创建文件夹
+                File file1 = new File(path);
+        		if (!file1.exists()) {
+        			// 如果该目录不存在，就创建此抽象路径名指定的目录。
+        			//file1.mkdir();
+        			file1.mkdirs();
+        		}
                 map.put("full_path", path);
                 System.out.println("存放图片文件的路径:"+path);
                 // 转存文件到指定的路径
                 file.transferTo(new File(path));
                 System.out.println("文件成功上传到指定目录下");
                 
+                // 图片访问浏览路径
+                map.put("imgUrl", trueFileName.replace("\\", "/"));
                 map.put("state", 200);
                 map.put("msg", "上传成功!");
-                
-                
                 
                 return map;
             }else {
@@ -118,17 +183,6 @@ public class UploadUtils {
         }else {  
             return fileName.substring(index+1);  
         }  
-    }  
-  
-    /** 
-     * 获得随机UUID文件名 
-     * @param fileName 
-     * @return 
-     */  
-    public static String generateRandonFileName(String fileName){  
-        //首相获得扩展名，然后生成一个UUID码作为名称，然后加上扩展名  
-        String ext = fileName.substring(fileName.lastIndexOf("."));  
-        return UUID.randomUUID().toString()+ext;  
     }  
   
     /** 

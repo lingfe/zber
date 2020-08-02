@@ -10,13 +10,23 @@ Page({
     tabs: ["预览", "基本信息", "其他导航菜单内容说明"],
     tab_index: 1,
     activeIndex: -1,         //tab切换下标
+
+    //图片数组
     arr:[],
 
-    getImage: app.config.getImage,
+    //表单
+    form:{
+      model:2,
+      typeMenu_name:"未选择",
+    },
+
     //布局说明
     bujusming_list: app.localData.bujusming_list,
-    tabs_content:[],//tabs导航菜单内容
+
+    //tabs导航菜单内容
+    tabs_content:[],
   },
+  
 
   /**
    * 生命周期函数--监听页面加载
@@ -39,6 +49,46 @@ Page({
 
     //根据项目id得到信息
     that.getWhereId(that);
+  },
+
+  //根据setId获取图片数据
+  getWhereSetId:function(that){
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/images/getWhereSetId',
+      method:"get",
+      data:{
+        setId:that.data.id,
+      },
+      success:function(res){
+        var data=res.data;
+        if(data.state==200){
+          that.setData({
+            'form.images': data.data
+          });
+        }
+      }
+    })
+  },
+
+  //根据图片id标识删除图片信息
+  bindtapImageDelete_images:function(e){
+    var that=this;
+    wx.request({
+      url: app.config.zberPath_web + 'zber_sys/images/deleteWhereId',
+      method:"get",
+      data:{
+        id: e.currentTarget.id
+      },
+      success:function(res){
+        var data=res.data;
+        if(data.state==200){
+          //重新get图片集合
+          //根据setId获取图片数据
+          that.getWhereSetId(that);
+        }
+        app.showModal(data.msg);
+      }
+    });
   },
 
   //跳转到tabs导航菜单内容编辑内容页面
@@ -168,7 +218,7 @@ Page({
 
   //跳转到选择分类菜单页面
   xz_type_menu: function (e) {
-    var param = 'id=' + e.currentTarget.dataset.tmid;
+    var param = 'id=' + e.currentTarget.id;
     wx.navigateTo({
       url: '/pages/my/myShops/addShops/xz_type_menu/xz_type_menu?' + param,
     })
@@ -187,44 +237,32 @@ Page({
         console.log(res);
         if (res.data.state == 200) {
           var releaseInfo = res.data.data;
-
+          
           //匹配是否包含http://
           if (releaseInfo.user_info.avatar.indexOf("http") == -1) {
             releaseInfo.user_info.avatar = app.config.getImage + releaseInfo.user_info.avatar;
           }
-          var images_list = releaseInfo.lbt_attribute.images_list;
-          images_list.forEach(function(item){
-            //匹配是否包含http://
-            if (item.imgUrl.indexOf("http") == -1) {
-              item.imgUrl = app.config.getImage + item.imgUrl;
-            }
-          });
-          releaseInfo.lbt_attribute.images_list = images_list;
 
-          //tabs内容处理
-          var info = releaseInfo.tabs_list;
-          for (var i = 0; i < info.length; i++) {
-            var content = info[i].content;
-            if (!app.checkInput(content)) {
-              content = JSON.parse(content);
-            }
-            info[i].content = content;
+          var activeIndex=that.data.activeIndex;
+          var tabs_content = null;
+          if (releaseInfo.tabs_list.length!=0){
+            activeIndex=0;
+            tabs_content = releaseInfo.tabs_list[activeIndex].tabs_content_List;
           }
 
+          var images_list = releaseInfo.images;
+          releaseInfo.images_list = images_list;
+
           that.setData({
+            activeIndex: activeIndex,
+            tabs_content: tabs_content,
             form: releaseInfo,
             releaseInfo: releaseInfo,
-            info: info,
           });
-        }
-        else {
-          app.showModal(res.data.msg);
         }
       }
     })
   },
-
-  //根据分类菜单id查询信息
 
   //表单提交
   bindFormSubmit: function (e) {
@@ -235,11 +273,11 @@ Page({
       form.id=that.data.id;
     }
     //验证非空
-    if (app.checkInput(e.detail.value.title)) {
-      app.showToast("标题不能为空!", "none");
+    if (app.checkInput(e.detail.value.typeMenu_id)){
+      app.showToast("请选择分类菜单!","none");
       return;
-    } else if (app.checkInput(e.detail.value.lable)) {
-      app.showToast("标签不能为空!", "none");
+    } else if (app.checkInput(e.detail.value.title)) {
+      app.showToast("标题不能为空!", "none");
       return;
     } else if (app.checkInput(e.detail.value.address)) {
       app.showToast("信息地址不能为空!", "none");
@@ -251,6 +289,7 @@ Page({
       form.describe_info = e.detail.value.describe_info;
       form.address = e.detail.value.address;
       form.creator= wx.getStorageSync("openid");
+      form.model=e.detail.value.model;
     }
 
     //多张图片上传
@@ -258,7 +297,7 @@ Page({
       //验证id是否为空
       if (!app.checkInput(id)) {
         wx.uploadFile({
-          url: app.config.getImage + "images/imageUpload",//单张图片上传
+          url: app.config.zberPath_web + "zber_sys/images/imageUpload",//单张图片上传
           filePath: path[0] + "",                 //要上传文件资源的路径
           name: 'file',     //文件对应的 key , 开发者在服务器端通过这个 key 可以获取到文件二进制内容
           header: {                                   //HTTP 请求 Header , header 中不能设置 Referer
@@ -276,6 +315,8 @@ Page({
               that.setData({
                 arr: []
               });
+              //根据项目id得到信息
+              that.getWhereId(that);
             }
           }
         });
@@ -436,7 +477,7 @@ Page({
     if (name == "预览") {
       //刷新
       //根据项目id得到信息
-      //that.getWhereId(that);
+      that.getWhereId(that);
     }
 
     //设置

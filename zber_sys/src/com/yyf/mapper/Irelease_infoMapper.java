@@ -3,6 +3,7 @@ package com.yyf.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -10,6 +11,7 @@ import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
 import com.yyf.inter.Irecommend;
+import com.yyf.inter.Irelease_info;
 import com.yyf.mapperProvider.PublicMapperProvider;
 import com.yyf.model.Tab_release_info;
 
@@ -21,7 +23,13 @@ import com.yyf.model.Tab_release_info;
   * 修改时间：2018年10月2日 下午9:07:33
   * 修改内容：
  */
-public interface Irelease_infoMapper extends Irecommend<Tab_release_info> {
+public interface Irelease_infoMapper extends Irecommend<Tab_release_info>,Irelease_info {
+	
+	@Update("update release_info set state=#{state} where id=#{id}")
+	int updateWhereId_state(@Param("id")String openid, @Param("state")int state);
+	
+	@Delete("delete from release_info where id=#{id}")
+	int deleteWhereId(@Param("id")String id);
 	
 	/**
 	 * 

@@ -1,5 +1,6 @@
 package com.yyf.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yyf.controller.util.SYS_GET;
 import com.yyf.controller.util.UploadUtils;
 import com.yyf.model.JosnModel;
 import com.yyf.model.Tab_images;
@@ -66,8 +68,8 @@ public class UserinfoController {
     	if(!StringUtils.isEmpty(openid)){
         	// 判断上传的文件是否为空
             if (file!=null) {
-            	
             	try {
+            		Tab_user_info info=iuserinfoService.getWhereOpenid(openid);
 					//上传图片
             		String folder="avatar";//文件夹，头像
 					Map<String, Object> map=UploadUtils.imageUpload(file, request,folder); 
@@ -96,6 +98,16 @@ public class UserinfoController {
 							josn.data=img;
 							josn.state=200;
 							josn.msg="修改成功!";
+							
+							//验证图片路径
+							if(info.getAvatar().indexOf("http") ==-1){
+								//删除文件,带路径的文件名
+								String path=SYS_GET.SET_IMG_PATH_URL+info.getAvatar();
+						        File file2 = new File(path);
+						        if(file2.delete()){
+						            System.out.println("deleted path="+img.getFull_path());
+						        }
+							}
 						}else{
 							josn.msg="修改失败!";
 						}

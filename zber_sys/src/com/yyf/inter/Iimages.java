@@ -16,6 +16,16 @@ public interface Iimages {
 	
 	/**
 	 * 
+	 * 根据图片id标识获取图片信息
+	 * @author lingfe     
+	 * @created 2019年4月15日 上午11:37:44  
+	 * @param id
+	 * @return
+	 */
+	Tab_images getWhereId(String id);
+	
+	/**
+	 * 
 	 * 根据图片id删除图片
 	 * @author lingfe     
 	 * @created 2018年10月31日 下午7:06:09  

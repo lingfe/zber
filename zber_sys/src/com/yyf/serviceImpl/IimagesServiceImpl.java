@@ -14,6 +14,11 @@ public class IimagesServiceImpl implements IimagesService {
 
 	@Autowired
 	private IimagesMapper iimagesMapper;
+	
+	@Override
+	public Tab_images getWhereId(String id) {
+		return iimagesMapper.getWhereId(id);
+	}
 
 	@Override
 	public List<Tab_images> getWhereLbtAttributeId(String setId) {
