@@ -1,191 +1,195 @@
 {
-	"description": "项目配置文件。",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "1.9.98",
-	"appid": "wx2c5b4fc4466c3e4e",
-	"projectname": "%E8%B4%B5%E5%B7%9E%E5%91%A8%E8%BE%B9%E5%84%BF%E4%BA%92%E8%81%94%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%B9%B3%E5%8F%B0%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 22,
-			"list": [
-				{
-					"id": 0,
-					"name": "推荐",
-					"pathName": "pages/flashRent/flashRent",
-					"query": ""
-				},
-				{
-					"id": 1,
-					"name": "餐饮(菜单)列表",
-					"pathName": "pages/list/index",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "组件API",
-					"pathName": "pages/component/index",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "服务",
-					"pathName": "pages/indexTo/indexTo",
-					"query": ""
-				},
-				{
-					"id": 4,
-					"name": "会议室详细",
-					"pathName": "pages/detailed/detailed",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "公共详情",
-					"pathName": "pages/flashRent/publicDetail/publicDetail",
-					"query": ""
-				},
-				{
-					"id": 6,
-					"name": "闪租",
-					"pathName": "pages/index/index",
-					"query": ""
-				},
-				{
-					"id": 7,
-					"name": "我的",
-					"pathName": "pages/my/my",
-					"query": ""
-				},
-				{
-					"id": 8,
-					"name": "日志",
-					"pathName": "pages/logs/logs",
-					"query": ""
-				},
-				{
-					"id": 9,
-					"name": "会议室列表",
-					"pathName": "pages/index/room/room",
-					"query": ""
-				},
-				{
-					"id": 10,
-					"name": "拼团详情",
-					"pathName": "pages/flashRent/flashRentDetailed/flashRentDetailed",
-					"query": ""
-				},
-				{
-					"id": 11,
-					"name": "商品详情",
-					"pathName": "pages/flashRent/flashRentDetailed/detail/detail",
-					"query": ""
-				},
-				{
-					"id": 12,
-					"name": "野货",
-					"pathName": "pages/indexTo/yeHuo/yeHuo",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "预约",
-					"pathName": "pages/indexTo/yuYue/yuYue",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "野货详情",
-					"pathName": "pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "微信登陆",
-					"pathName": "pages/wxUserinfoLogin/wxUserinfoLogin",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "申请成为商户",
-					"pathName": "pages/indexTo/admissionApply/applyMerchant/applyMerchant",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "官方审核管理",
-					"pathName": "pages/my/auditing/auditing",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "添加商铺",
-					"pathName": "pages/my/myShops/addShops/addShops",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "我的商铺",
-					"pathName": "pages/my/myShops/myShops",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "添加商品",
-					"pathName": "pages/my/myShops/addShops/add_commodity/add_commodity",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "我的发布",
-					"pathName": "pages/my/myReleaseInfo/myReleaseInfo",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "布局模型",
-					"pathName": "pages/zber/layoutModel/layoutModel"
-				}
-			]
-		}
-	}
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": []
+  },
+  "compileType": "miniprogram",
+  "libVersion": "1.9.98",
+  "appid": "wx2c5b4fc4466c3e4e",
+  "projectname": "%E8%B4%B5%E5%B7%9E%E5%91%A8%E8%BE%B9%E5%84%BF%E4%BA%92%E8%81%94%E7%BD%91%E6%9C%8D%E5%8A%A1%E5%B9%B3%E5%8F%B0%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": 22,
+      "list": [
+        {
+          "id": 0,
+          "name": "推荐",
+          "pathName": "pages/flashRent/flashRent",
+          "query": ""
+        },
+        {
+          "id": 1,
+          "name": "餐饮(菜单)列表",
+          "pathName": "pages/list/index",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "组件API",
+          "pathName": "pages/component/index",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "服务",
+          "pathName": "pages/indexTo/indexTo",
+          "query": ""
+        },
+        {
+          "id": 4,
+          "name": "会议室详细",
+          "pathName": "pages/detailed/detailed",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "公共详情",
+          "pathName": "pages/flashRent/publicDetail/publicDetail",
+          "query": ""
+        },
+        {
+          "id": 6,
+          "name": "闪租",
+          "pathName": "pages/index/index",
+          "query": ""
+        },
+        {
+          "id": 7,
+          "name": "我的",
+          "pathName": "pages/my/my",
+          "query": ""
+        },
+        {
+          "id": 8,
+          "name": "日志",
+          "pathName": "pages/logs/logs",
+          "query": ""
+        },
+        {
+          "id": 9,
+          "name": "会议室列表",
+          "pathName": "pages/index/room/room",
+          "query": ""
+        },
+        {
+          "id": 10,
+          "name": "拼团详情",
+          "pathName": "pages/flashRent/flashRentDetailed/flashRentDetailed",
+          "query": ""
+        },
+        {
+          "id": 11,
+          "name": "商品详情",
+          "pathName": "pages/flashRent/flashRentDetailed/detail/detail",
+          "query": ""
+        },
+        {
+          "id": 12,
+          "name": "野货",
+          "pathName": "pages/indexTo/yeHuo/yeHuo",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "预约",
+          "pathName": "pages/indexTo/yuYue/yuYue",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "野货详情",
+          "pathName": "pages/indexTo/yeHuo/yeHuoDetail/yeHuoDetail",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "微信登陆",
+          "pathName": "pages/wxUserinfoLogin/wxUserinfoLogin",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "申请成为商户",
+          "pathName": "pages/indexTo/admissionApply/applyMerchant/applyMerchant",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "官方审核管理",
+          "pathName": "pages/my/auditing/auditing",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "添加商铺",
+          "pathName": "pages/my/myShops/addShops/addShops",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "我的商铺",
+          "pathName": "pages/my/myShops/myShops",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "添加商品",
+          "pathName": "pages/my/myShops/addShops/add_commodity/add_commodity",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "我的发布",
+          "pathName": "pages/my/myReleaseInfo/myReleaseInfo",
+          "query": ""
+        },
+        {
+          "id": -1,
+          "name": "布局模型",
+          "pathName": "pages/zber/layoutModel/layoutModel"
+        }
+      ]
+    }
+  }
 }
